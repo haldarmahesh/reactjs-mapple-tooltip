@@ -5,16 +5,23 @@ export default class ToolTip extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      mouseIsOver: false
+      mouseIsOver: false,
+      pos: {x: 0, y: 0}
     }
   }
   render() {
     const { mouseIsOver } = this.state;
+    const style = {
+      display: 'table'
+    }
     return (
-      <span onMouseEnter={::this.handleMouseEnter}
-        onMouseLeave={::this.handleMouseLeave}>
-        { this.props.children }
-        { mouseIsOver ? <Plate/> : null }
+      <span>
+        { mouseIsOver ? <Plate pos={this.state.pos}/> : null }
+        <span style={style} onMouseEnter={::this.handleMouseEnter}
+          onMouseLeave={::this.handleMouseLeave}
+          onMouseMove={event => ::this.handleMouseMove(event)}>
+          { this.props.children }
+        </span>
       </span>
     );
   }
@@ -29,5 +36,15 @@ export default class ToolTip extends Component {
     this.setState({
       mouseIsOver: false
     });
+  }
+
+  handleMouseMove(event) {
+    console.log('pos', event.currentTarget.getBoundingClientRect());
+    this.setState({
+      pos: {
+        x: event.clientX,
+        y: event.clientY - 50
+      }
+    })
   }
 }
