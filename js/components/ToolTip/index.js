@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import Plate from './Plate';
+import Position from './helper/Position.js';
 
 export default class ToolTip extends Component {
   constructor(props) {
     super(props);
     this.state = {
       mouseIsOver: false,
+      float: false,
       pos: {x: 0, y: 0}
     }
   }
@@ -17,7 +19,8 @@ export default class ToolTip extends Component {
     return (
       <span>
         { mouseIsOver ? <Plate pos={this.state.pos}/> : null }
-        <span style={style} onMouseEnter={::this.handleMouseEnter}
+        <span style={style}
+          onMouseEnter={event => ::this.handleMouseEnter(event)}
           onMouseLeave={::this.handleMouseLeave}
           onMouseMove={event => ::this.handleMouseMove(event)}>
           { this.props.children }
@@ -26,10 +29,15 @@ export default class ToolTip extends Component {
     );
   }
 
-  handleMouseEnter() {
+  handleMouseEnter(event) {
     this.setState({
       mouseIsOver: true
     });
+    const position = new Position(event);
+    const fixedXY = position.getFixed();
+    this.setState({
+      pos: fixedXY
+    })
   }
 
   handleMouseLeave() {
@@ -39,11 +47,15 @@ export default class ToolTip extends Component {
   }
 
   handleMouseMove(event) {
-    console.log('pos', event.currentTarget.getBoundingClientRect());
+    if (!this.state.float) {
+      return;
+    }
+    const position = new Position(event);
+    const mousePosition = position.getFloatCoordinates();
     this.setState({
       pos: {
-        x: event.clientX,
-        y: event.clientY - 50
+        x: mousePosition.x,
+        y: mousePosition.y - 50
       }
     })
   }

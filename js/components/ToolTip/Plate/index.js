@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 export default class Plate extends Component {
   render() {
     const { pos } = this.props;
-    console.log('pos', pos);
     const style = {
       position: 'absolute',
       top: pos.y,
-      left: pos.x
+      left: pos.x,
+      backgroundColor: 'black',
+      padding: '5px',
+      color: 'white'
     }
     return (
       <div style={style}>
