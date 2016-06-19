@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Plate from './Plate';
 import Position from './helper/Position.js';
+import ReactDOM from 'react-dom';
 
 export default class ToolTip extends Component {
   constructor(props) {
@@ -18,7 +19,10 @@ export default class ToolTip extends Component {
     }
     return (
       <span>
-        { mouseIsOver ? <Plate pos={this.state.pos}/> : null }
+        <Plate
+          visible={this.state.mouseIsOver}
+          ref={'plateComp'}
+          pos={this.state.pos}/>
         <span style={style}
           onMouseEnter={event => ::this.handleMouseEnter(event)}
           onMouseLeave={::this.handleMouseLeave}
@@ -35,9 +39,13 @@ export default class ToolTip extends Component {
     });
     const position = new Position(event);
     const fixedXY = position.getFixed();
+    const plateDimensions = this.getDomDimensionsions(this.getPlateDOM());
     this.setState({
-      pos: fixedXY
-    })
+      pos: {
+        x: fixedXY.x - plateDimensions.width/2,
+        y: fixedXY.y - plateDimensions.height - 10
+      }
+    });
   }
 
   handleMouseLeave() {
@@ -52,11 +60,21 @@ export default class ToolTip extends Component {
     }
     const position = new Position(event);
     const mousePosition = position.getFloatCoordinates();
+    const plateDimensions = this.getDomDimensionsions(this.getPlateDOM());
     this.setState({
       pos: {
-        x: mousePosition.x,
-        y: mousePosition.y - 50
+        x: mousePosition.x - plateDimensions.width/2,
+        y: mousePosition.y - plateDimensions.height - 10
       }
     })
+  }
+  getPlateDOM() {
+    return ReactDOM.findDOMNode(this.refs.plateComp);
+  }
+  getDomDimensionsions(dom){
+    return {
+      width: dom.offsetWidth,
+      height: dom.offsetHeight
+    }
   }
 }
