@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Plate from './Plate';
 import Position from './helper/Position.js';
-import ReactDOM from 'react-dom';
+import Dom from './helper/Dom.js';
 
 export default class ToolTip extends Component {
   constructor(props) {
@@ -38,8 +38,9 @@ export default class ToolTip extends Component {
       mouseIsOver: true
     });
     const position = new Position(event);
-    const fixedXY = position.getFixed();
-    const plateDimensions = this.getDomDimensionsions(this.getPlateDOM());
+    const fixedXY = position.getFixedCoordinates();
+    const PlateDom = new Dom(this.refs.plateComp);
+    const plateDimensions = PlateDom.getDimensions();
     this.setState({
       pos: {
         x: fixedXY.x - plateDimensions.width/2,
@@ -60,21 +61,13 @@ export default class ToolTip extends Component {
     }
     const position = new Position(event);
     const mousePosition = position.getFloatCoordinates();
-    const plateDimensions = this.getDomDimensionsions(this.getPlateDOM());
+    const PlateDom = new Dom(this.refs.plateComp)
+    const plateDimensions = PlateDom.getDimensions();
     this.setState({
       pos: {
-        x: mousePosition.x - plateDimensions.width/2,
+        x: mousePosition.x - plateDimensions.width / 2,
         y: mousePosition.y - plateDimensions.height - 10
       }
     })
-  }
-  getPlateDOM() {
-    return ReactDOM.findDOMNode(this.refs.plateComp);
-  }
-  getDomDimensionsions(dom){
-    return {
-      width: dom.offsetWidth,
-      height: dom.offsetHeight
-    }
   }
 }
