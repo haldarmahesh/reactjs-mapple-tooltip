@@ -6,6 +6,8 @@ import Dom from './helper/Dom.js';
 export default class ToolTip extends Component {
   constructor(props) {
     super(props);
+    this.setTime = null;
+    this.timeOut = 300;
     this.state = {
       mouseIsOver: false,
       float: false,
@@ -34,25 +36,29 @@ export default class ToolTip extends Component {
   }
 
   handleMouseEnter(event) {
-    this.setState({
-      mouseIsOver: true
-    });
+    this.timeOut = this.state.float ? 0 : 300;
     const position = new Position(event);
     const fixedXY = position.getFixedCoordinates();
     const PlateDom = new Dom(this.refs.plateComp);
     const plateDimensions = PlateDom.getDimensions();
-    this.setState({
+    this.setTime = setTimeout(() => {
+      this.setState({
+      mouseIsOver: true,
       pos: {
         x: fixedXY.x - plateDimensions.width/2,
         y: fixedXY.y - plateDimensions.height - 10
       }
     });
+    }, this.timeOut);
   }
 
   handleMouseLeave() {
-    this.setState({
-      mouseIsOver: false
-    });
+    clearTimeout(this.setTime);
+    this.setTime = setTimeout(() => {
+      this.setState({
+        mouseIsOver: false
+      })
+    }, this.timeOut);
   }
 
   handleMouseMove(event) {

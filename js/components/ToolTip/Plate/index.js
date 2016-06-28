@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 export default class Plate extends Component {
   render() {
     const { pos } = this.props;
-    const visible = this.props.visible ? 'visible' : 'hidden';
+    const opacity = this.props.visible ? '1' : '0';
     const style = {
       backgroundColor: 'black',
       padding: '5px',
@@ -20,8 +20,11 @@ export default class Plate extends Component {
     }
     return (
       <div style={{position: 'absolute',
-      top: pos.y,
-      left: pos.x,visibility: visible}}>
+        top: pos.y,
+        left: pos.x,
+        opacity: opacity,
+      WebkitTransition: 'opacity .25s ease-in-out',
+      msTransition: 'opacity .25s ease-in-out'}}>
         <div style={style}>
           This is from Plate
         </div>
