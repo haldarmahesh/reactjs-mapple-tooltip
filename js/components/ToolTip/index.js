@@ -8,7 +8,7 @@ export default class ToolTip extends Component {
     super(props);
     this.setTime = null;
     this.float = true;
-    this.direction = 'top';
+    this.direction = 'left';
     this.timeOut = this.float ? 0 : 300;
     this.state = this.initialState();
     // call setThepropsValues() to override the props val
@@ -20,14 +20,15 @@ export default class ToolTip extends Component {
     }
     return (
       <span>
-        <Plate
-          visible={this.state.mouseIsOver}
-          ref={'plateComp'}
-          pos={this.state.pos}/>
         <span style={style}
           onMouseEnter={event => ::this.handleMouseEnter(event)}
           onMouseLeave={::this.handleMouseLeave}
           onMouseMove={event => ::this.handleMouseMove(event)}>
+          <Plate
+          visible={this.state.mouseIsOver}
+          ref={'plateComp'}
+          pos={this.state.pos}
+          direction={this.direction}/>
           { this.props.children }
         </span>
       </span>
@@ -42,9 +43,34 @@ export default class ToolTip extends Component {
   getPosition(referenceXY) {
     const PlateDom = new Dom(this.refs.plateComp);
     const plateDimensions = PlateDom.getDimensions();
+    let distanceX = 0;
+    let distanceY = 0;
+    let posX = 0;
+    let posY = 0;
+    if (this.direction === 'top') {
+      distanceX = 0;
+      distanceY = -10;
+      posX = referenceXY.x - plateDimensions.width / 2 + distanceX;
+      posY = referenceXY.y - plateDimensions.height + distanceY;
+    } else if (this.direction === 'right') {
+      distanceX = 10;
+      distanceY = -10;
+      posX = referenceXY.x + distanceX;
+      posY = referenceXY.y - plateDimensions.height / 2 + distanceY;
+    } else if (this.direction === 'bottom') {
+      distanceX = 10;
+      distanceY = 20;
+      posX = referenceXY.x - plateDimensions.width / 2 + distanceX;
+      posY = referenceXY.y + distanceY;
+    } else if (this.direction === 'left') {
+      distanceX = -10;
+      distanceY = 0;
+      posX = referenceXY.x - plateDimensions.width  + distanceX
+      posY = referenceXY.y - plateDimensions.height / 2 + distanceY;
+    }
     return {
-      x: referenceXY.x - plateDimensions.width/2,
-      y: referenceXY.y - plateDimensions.height - 10
+      x: posX,
+      y: posY
     }
   }
   handleMouseEnter(event) {
