@@ -7,10 +7,10 @@ export default class ToolTip extends Component {
   constructor(props) {
     super(props);
     this.setTime = null;
-    this.timeOut = 300;
+    this.float = false;
+    this.timeOut = this.float ? 0 : 300;
     this.state = {
       mouseIsOver: false,
-      float: false,
       pos: {x: 0, y: 0}
     }
   }
@@ -36,7 +36,6 @@ export default class ToolTip extends Component {
   }
 
   handleMouseEnter(event) {
-    this.timeOut = this.state.float ? 0 : 300;
     const position = new Position(event);
     const fixedXY = position.getFixedCoordinates();
     const PlateDom = new Dom(this.refs.plateComp);
@@ -62,7 +61,7 @@ export default class ToolTip extends Component {
   }
 
   handleMouseMove(event) {
-    if (!this.state.float) {
+    if (!this.float) {
       return;
     }
     const position = new Position(event);
