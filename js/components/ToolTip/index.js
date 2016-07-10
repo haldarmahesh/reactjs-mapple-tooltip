@@ -8,6 +8,7 @@ export default class ToolTip extends Component {
     super(props);
     this.setTime = null;
     this.float = false;
+    this.direction = 'top';
     this.timeOut = this.float ? 0 : 300;
     this.state = {
       mouseIsOver: false,
@@ -34,19 +35,21 @@ export default class ToolTip extends Component {
       </span>
     );
   }
-
+  getPosition(referenceXY) {
+    const PlateDom = new Dom(this.refs.plateComp);
+    const plateDimensions = PlateDom.getDimensions();
+    return {
+      x: referenceXY.x - plateDimensions.width/2,
+      y: referenceXY.y - plateDimensions.height - 10
+    }
+  }
   handleMouseEnter(event) {
     const position = new Position(event);
     const fixedXY = position.getFixedCoordinates();
-    const PlateDom = new Dom(this.refs.plateComp);
-    const plateDimensions = PlateDom.getDimensions();
     this.setTime = setTimeout(() => {
       this.setState({
       mouseIsOver: true,
-      pos: {
-        x: fixedXY.x - plateDimensions.width/2,
-        y: fixedXY.y - plateDimensions.height - 10
-      }
+      pos: this.getPosition(fixedXY)
     });
     }, this.timeOut);
   }
@@ -55,7 +58,11 @@ export default class ToolTip extends Component {
     clearTimeout(this.setTime);
     this.setTime = setTimeout(() => {
       this.setState({
-        mouseIsOver: false
+        mouseIsOver: false,
+        pos: {
+          x: -1000,
+          y: -1000
+        }
       })
     }, this.timeOut);
   }
@@ -66,13 +73,8 @@ export default class ToolTip extends Component {
     }
     const position = new Position(event);
     const mousePosition = position.getFloatCoordinates();
-    const PlateDom = new Dom(this.refs.plateComp)
-    const plateDimensions = PlateDom.getDimensions();
     this.setState({
-      pos: {
-        x: mousePosition.x - plateDimensions.width / 2,
-        y: mousePosition.y - plateDimensions.height - 10
-      }
+      pos: this.getPosition(mousePosition)
     })
   }
 }
