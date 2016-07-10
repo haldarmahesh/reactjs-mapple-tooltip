@@ -7,13 +7,11 @@ export default class ToolTip extends Component {
   constructor(props) {
     super(props);
     this.setTime = null;
-    this.float = false;
+    this.float = true;
     this.direction = 'top';
     this.timeOut = this.float ? 0 : 300;
-    this.state = {
-      mouseIsOver: false,
-      pos: {x: 0, y: 0}
-    }
+    this.state = this.initialState();
+    // call setThepropsValues() to override the props val
   }
   render() {
     const { mouseIsOver } = this.state;
@@ -34,6 +32,12 @@ export default class ToolTip extends Component {
         </span>
       </span>
     );
+  }
+  initialState() {
+    return {
+      mouseIsOver: false,
+      pos: {x: -1000, y: -1000}
+    };
   }
   getPosition(referenceXY) {
     const PlateDom = new Dom(this.refs.plateComp);
@@ -57,13 +61,7 @@ export default class ToolTip extends Component {
   handleMouseLeave() {
     clearTimeout(this.setTime);
     this.setTime = setTimeout(() => {
-      this.setState({
-        mouseIsOver: false,
-        pos: {
-          x: -1000,
-          y: -1000
-        }
-      })
+      this.setState(this.initialState())
     }, this.timeOut);
   }
 
