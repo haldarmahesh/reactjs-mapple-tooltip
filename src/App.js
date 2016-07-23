@@ -9,7 +9,7 @@ export default class App extends Component {
       padding: '10px'
     };
     const toolTipConfig = {
-      direction: 'left',
+      direction: 'bottom',
       float: true
     } 
     return (
@@ -19,9 +19,15 @@ export default class App extends Component {
           <div className='tipDiv' style={style}>
             Hello wassup
           </div>
+          <div>
+            Mahesh
+          </div>
         </ToolTip>
         <ToolTip {...toolTipConfig}>
           <input type="text" />
+          <div>
+            hello
+          </div>
         </ToolTip>
       </div>
     );

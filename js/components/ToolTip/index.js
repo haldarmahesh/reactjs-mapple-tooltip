@@ -26,8 +26,10 @@ export default class ToolTip extends Component {
           visible={this.state.mouseIsOver}
           ref={'plateComp'}
           pos={this.state.pos}
-          direction={this.direction}/>
-          { this.props.children }
+          direction={this.direction}
+          content={this.props.children[1]}
+          plateWidthHeight={this.state.plateWidthHeight}/>
+          { this.props.children[0] }
         </span>
       </span>
     );
@@ -112,6 +114,11 @@ export default class ToolTip extends Component {
     const position = new Position(event);
     const fixedXY = position.getFixedCoordinates();
     const widthHeight = position.getWidthHeight();
+    const PlateDom = new Dom(this.refs.plateComp);
+    const plateDimensions = PlateDom.getDimensions();
+    this.setState({
+      plateWidthHeight: plateDimensions
+    })
     this.setTime = setTimeout(() => {
       this.setState({
       mouseIsOver: true,
