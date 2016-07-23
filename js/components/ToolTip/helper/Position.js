@@ -9,6 +9,13 @@ export default class Position {
       y: target.top
     };
   }
+  getWidthHeight() {
+    const target = this.event.currentTarget.getBoundingClientRect();
+    return {
+      width: target.width,
+      height: target.height
+    };
+  }
 
   getFloatCoordinates() {
     return {

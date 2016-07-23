@@ -42,7 +42,7 @@ export default class ToolTip extends Component {
       pos: {x: -1000, y: -1000}
     };
   }
-  getPosition(referenceXY) {
+  getPositionAroundCursor(referenceXY) {
     const PlateDom = new Dom(this.refs.plateComp);
     const plateDimensions = PlateDom.getDimensions();
     let distanceX = 0;
@@ -75,13 +75,47 @@ export default class ToolTip extends Component {
       y: posY
     }
   }
+  getPositionAroundDom(referenceXY, widthHeight) {
+    const PlateDom = new Dom(this.refs.plateComp);
+    const plateDimensions = PlateDom.getDimensions();
+    let distanceX = 0;
+    let distanceY = 0;
+    let posX = 0;
+    let posY = 0;
+    if (this.direction === 'top') {
+      distanceX = 0;
+      distanceY = -10;
+      posX = referenceXY.x - plateDimensions.width / 2 + distanceX;
+      posY = referenceXY.y - plateDimensions.height + distanceY;
+    } else if (this.direction === 'right') {
+      distanceX = 15;
+      distanceY = 0;
+      posX = widthHeight.width + distanceX;
+      posY = referenceXY.y - plateDimensions.height / 2 + distanceY + widthHeight.height / 2;
+    } else if (this.direction === 'bottom') {
+      distanceX = 0;
+      distanceY = 5;
+      posX = referenceXY.x - plateDimensions.width / 2 + distanceX;
+      posY = referenceXY.y / 2 + plateDimensions.height + distanceY;
+    } else if (this.direction === 'left') {
+      distanceX = -5;
+      distanceY = 0;
+      posX = -plateDimensions.width;
+      posY = referenceXY.y - plateDimensions.height / 2 + distanceY + widthHeight.height / 2;    
+    }
+    return {
+      x: posX,
+      y: posY
+    }
+  }
   handleMouseEnter(event) {
     const position = new Position(event);
     const fixedXY = position.getFixedCoordinates();
+    const widthHeight = position.getWidthHeight();
     this.setTime = setTimeout(() => {
       this.setState({
       mouseIsOver: true,
-      pos: this.getPosition(fixedXY)
+      pos: this.float ? this.getPositionAroundCursor(fixedXY) : this.getPositionAroundDom(fixedXY, widthHeight)
     });
     }, this.timeOut);
   }
@@ -100,7 +134,7 @@ export default class ToolTip extends Component {
     const position = new Position(event);
     const mousePosition = position.getFloatCoordinates();
     this.setState({
-      pos: this.getPosition(mousePosition)
+      pos: this.getPositionAroundCursor(mousePosition)
     });
   }
 }

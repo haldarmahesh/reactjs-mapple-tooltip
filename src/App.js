@@ -9,6 +9,7 @@ export default class App extends Component {
       padding: '10px'
     };
     const toolTipConfig = {
+      direction: 'left',
       float: true
     } 
     return (
@@ -19,7 +20,7 @@ export default class App extends Component {
             Hello wassup
           </div>
         </ToolTip>
-        <ToolTip>
+        <ToolTip {...toolTipConfig}>
           <input type="text" />
         </ToolTip>
       </div>
