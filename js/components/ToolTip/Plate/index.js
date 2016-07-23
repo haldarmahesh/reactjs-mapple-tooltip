@@ -7,8 +7,7 @@ export default class Plate extends Component {
     const style = {
       backgroundColor: 'black',
       padding: '5px',
-      color: 'white',
-      minWidth: '100px'
+      color: 'white'
     }
     const triangleTipStyle = {
       width: '0',
@@ -18,27 +17,27 @@ export default class Plate extends Component {
     const styleTop = {
       borderLeft: '5px solid transparent',
       borderRight: '5px solid transparent',
-      borderTop: '5px solid',
+      borderTop: `5px solid ${style.backgroundColor}`,
       left: '46%'
     };
     const styleRight = {
       borderTop: '5px solid transparent',
       borderBottom: '5px solid transparent',
-      borderRight: '5px solid',
+      borderRight: `5px solid ${style.backgroundColor}`,
       top: (plateWidthHeight.height/2 - 5)+ 'px',
       left: '-5px'
     };
     const styleBottom = {
       borderLeft: '5px solid transparent',
       borderRight: '5px solid transparent',
-      borderBottom: '5px solid',
+      borderBottom: `5px solid ${style.backgroundColor}`,
       top: '-5px',
       left: '46%'
     };
     const styleLeft = {
       borderTop: '5px solid transparent',
       borderBottom: '5px solid transparent',
-      borderLeft: '5px solid',
+      borderLeft: `5px solid ${style.backgroundColor}`,
       top: (plateWidthHeight.height/2 - 5)+ 'px',
       right: '-5px'
     }
