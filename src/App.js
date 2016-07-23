@@ -8,10 +8,13 @@ export default class App extends Component {
       width: '500px',
       padding: '10px'
     };
+    const toolTipConfig = {
+      float: true
+    } 
     return (
       <div>
         <h1>Hello, world.</h1>
-        <ToolTip>
+        <ToolTip {...toolTipConfig}>
           <div className='tipDiv' style={style}>
             Hello wassup
           </div>

@@ -6,12 +6,10 @@ import Dom from './helper/Dom.js';
 export default class ToolTip extends Component {
   constructor(props) {
     super(props);
+    this.setPropsValues(props);
     this.setTime = null;
-    this.float = true;
-    this.direction = 'left';
     this.timeOut = this.float ? 0 : 300;
     this.state = this.initialState();
-    // call setThepropsValues() to override the props val
   }
   render() {
     const { mouseIsOver } = this.state;
@@ -33,6 +31,10 @@ export default class ToolTip extends Component {
         </span>
       </span>
     );
+  }
+  setPropsValues(props) {
+    this.float = props.float || false;
+    this.direction = props.direction || 'top';
   }
   initialState() {
     return {
@@ -99,6 +101,6 @@ export default class ToolTip extends Component {
     const mousePosition = position.getFloatCoordinates();
     this.setState({
       pos: this.getPosition(mousePosition)
-    })
+    });
   }
 }
