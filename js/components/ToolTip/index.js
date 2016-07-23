@@ -8,7 +8,8 @@ export default class ToolTip extends Component {
     super(props);
     this.setPropsValues(props);
     this.setTime = null;
-    this.timeOut = this.float ? 0 : 300;
+    this.timeOut = this.float ? 0 : 200;
+    this.gap = 10;
     this.state = this.initialState();
   }
   render() {
@@ -53,21 +54,21 @@ export default class ToolTip extends Component {
     let posY = 0;
     if (this.direction === 'top') {
       distanceX = 0;
-      distanceY = -10;
+      distanceY = -this.gap;
       posX = referenceXY.x - plateDimensions.width / 2 + distanceX;
       posY = referenceXY.y - plateDimensions.height + distanceY;
     } else if (this.direction === 'right') {
-      distanceX = 10;
-      distanceY = -10;
+      distanceX = this.gap;
+      distanceY = 0;
       posX = referenceXY.x + distanceX;
       posY = referenceXY.y - plateDimensions.height / 2 + distanceY;
     } else if (this.direction === 'bottom') {
-      distanceX = 10;
-      distanceY = 20;
+      distanceX = 0;
+      distanceY = this.gap + 10;
       posX = referenceXY.x - plateDimensions.width / 2 + distanceX;
       posY = referenceXY.y + distanceY;
     } else if (this.direction === 'left') {
-      distanceX = -10;
+      distanceX = -this.gap;
       distanceY = 0;
       posX = referenceXY.x - plateDimensions.width  + distanceX
       posY = referenceXY.y - plateDimensions.height / 2 + distanceY;
@@ -86,21 +87,21 @@ export default class ToolTip extends Component {
     let posY = 0;
     if (this.direction === 'top') {
       distanceX = 0;
-      distanceY = -10;
+      distanceY = -this.gap;
       posX = referenceXY.x - plateDimensions.width / 2 + distanceX;
       posY = referenceXY.y - plateDimensions.height + distanceY;
     } else if (this.direction === 'right') {
-      distanceX = 15;
+      distanceX = this.gap + 5;
       distanceY = 0;
       posX = widthHeight.width + distanceX;
       posY = referenceXY.y - plateDimensions.height / 2 + distanceY + widthHeight.height / 2;
     } else if (this.direction === 'bottom') {
       distanceX = 0;
-      distanceY = 5;
+      distanceY = this.gap;
       posX = referenceXY.x - plateDimensions.width / 2 + distanceX;
-      posY = referenceXY.y / 2 + plateDimensions.height + distanceY;
+      posY = referenceXY.y + widthHeight.height + distanceY;
     } else if (this.direction === 'left') {
-      distanceX = -5;
+      distanceX = -this.gap;
       distanceY = 0;
       posX = -plateDimensions.width;
       posY = referenceXY.y - plateDimensions.height / 2 + distanceY + widthHeight.height / 2;    
