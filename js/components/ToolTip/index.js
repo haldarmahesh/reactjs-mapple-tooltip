@@ -89,7 +89,7 @@ export default class ToolTip extends Component {
       y: posY
     }
   }
-  getPositionAroundDom(referenceXY, widthHeight) {
+  getPositionAroundDom() {
     const plateDom = new Dom(this.refs.plateComp).getDomInfo();
     const contentForMapple = new Dom(this.refs.contentForMapple).getDomInfo();
     let distanceX = 0;
@@ -135,7 +135,7 @@ export default class ToolTip extends Component {
       this.setState({
       mouseIsOver: true,
       default: false,
-      pos: this.float ? this.getPositionAroundCursor(fixedXY) : this.getPositionAroundDom(fixedXY, widthHeight)
+      pos: this.float ? this.getPositionAroundCursor(fixedXY) : this.getPositionAroundDom()
     });
     }, this.timeOut);
   }
