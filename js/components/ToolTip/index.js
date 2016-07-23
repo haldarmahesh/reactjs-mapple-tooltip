@@ -12,10 +12,17 @@ export default class ToolTip extends Component {
     this.gap = 10;
     this.state = this.initialState();
   }
+  // componentDidUpdate(nextProps) {
+  //   if (this.state.default) {
+  //     const PlateDomNew = new Dom(this.refs.plateComp);
+  //     console.log(PlateDomNew.getDomInfo(), this.state.default);
+  //   }
+  // }
   render() {
     const { mouseIsOver } = this.state;
     const style = {
-      display: 'table'
+      display: 'table',
+      position: 'relative'
     }
     return (
       <span>
@@ -30,7 +37,9 @@ export default class ToolTip extends Component {
           direction={this.direction}
           content={this.props.children[1]}
           plateWidthHeight={this.state.plateWidthHeight}/>
-          { this.props.children[0] }
+          <div ref="contentForMapple">
+            { this.props.children[0] }
+          </div>
         </span>
       </span>
     );
@@ -42,12 +51,13 @@ export default class ToolTip extends Component {
   initialState() {
     return {
       mouseIsOver: false,
-      pos: {x: -1000, y: -1000}
+      pos: {x: -1000, y: -1000},
+      default: true
     };
   }
   getPositionAroundCursor(referenceXY) {
-    const PlateDom = new Dom(this.refs.plateComp);
-    const plateDimensions = PlateDom.getDimensions();
+    const plateDom = new Dom(this.refs.plateComp).getDomInfo();
+    const contentForMapple = new Dom(this.refs.contentForMapple).getDomInfo();
     let distanceX = 0;
     let distanceY = 0;
     let posX = 0;
@@ -55,23 +65,24 @@ export default class ToolTip extends Component {
     if (this.direction === 'top') {
       distanceX = 0;
       distanceY = -this.gap;
-      posX = referenceXY.x - plateDimensions.width / 2 + distanceX;
-      posY = referenceXY.y - plateDimensions.height + distanceY;
+      posX = referenceXY.x - contentForMapple.left - plateDom.width / 2 + distanceX;
+      posY = referenceXY.y - contentForMapple.top - plateDom.height + distanceY;
     } else if (this.direction === 'right') {
-      distanceX = this.gap;
+      distanceX = this.gap + 5;
       distanceY = 0;
-      posX = referenceXY.x + distanceX;
-      posY = referenceXY.y - plateDimensions.height / 2 + distanceY;
+      posX = referenceXY.x - contentForMapple.left + distanceX;
+      posY = referenceXY.y - plateDom.height/2 - contentForMapple.top;
     } else if (this.direction === 'bottom') {
       distanceX = 0;
       distanceY = this.gap + 10;
-      posX = referenceXY.x - plateDimensions.width / 2 + distanceX;
-      posY = referenceXY.y + distanceY;
+      posX = referenceXY.x - contentForMapple.left - plateDom.width / 2 + distanceX;
+      posY = referenceXY.y - contentForMapple.top + distanceY;
+      
     } else if (this.direction === 'left') {
       distanceX = -this.gap;
       distanceY = 0;
-      posX = referenceXY.x - plateDimensions.width  + distanceX
-      posY = referenceXY.y - plateDimensions.height / 2 + distanceY;
+      posX = referenceXY.x - contentForMapple.left - plateDom.width + distanceX
+      posY = referenceXY.y - plateDom.height/2 - contentForMapple.top;
     }
     return {
       x: posX,
@@ -79,8 +90,8 @@ export default class ToolTip extends Component {
     }
   }
   getPositionAroundDom(referenceXY, widthHeight) {
-    const PlateDom = new Dom(this.refs.plateComp);
-    const plateDimensions = PlateDom.getDimensions();
+    const plateDom = new Dom(this.refs.plateComp).getDomInfo();
+    const contentForMapple = new Dom(this.refs.contentForMapple).getDomInfo();
     let distanceX = 0;
     let distanceY = 0;
     let posX = 0;
@@ -88,23 +99,23 @@ export default class ToolTip extends Component {
     if (this.direction === 'top') {
       distanceX = 0;
       distanceY = -this.gap;
-      posX = referenceXY.x - plateDimensions.width / 2 + distanceX;
-      posY = referenceXY.y - plateDimensions.height + distanceY;
+      posX = contentForMapple.width/2 - plateDom.width/2 + distanceX;
+      posY = - plateDom.height + distanceY;
     } else if (this.direction === 'right') {
       distanceX = this.gap + 5;
       distanceY = 0;
-      posX = widthHeight.width + distanceX;
-      posY = referenceXY.y - plateDimensions.height / 2 + distanceY + widthHeight.height / 2;
+      posX = contentForMapple.width + distanceX;
+      posY = -plateDom.height / 2 + contentForMapple.height / 2;
     } else if (this.direction === 'bottom') {
       distanceX = 0;
       distanceY = this.gap;
-      posX = referenceXY.x - plateDimensions.width / 2 + distanceX;
-      posY = referenceXY.y + widthHeight.height + distanceY;
+      posX = contentForMapple.width / 2 - plateDom.width / 2 + distanceX;
+      posY = contentForMapple.height + distanceY;
     } else if (this.direction === 'left') {
       distanceX = -this.gap;
       distanceY = 0;
-      posX = -plateDimensions.width;
-      posY = referenceXY.y - plateDimensions.height / 2 + distanceY + widthHeight.height / 2;    
+      posX = -plateDom.width + distanceX;
+      posY = -plateDom.height / 2 + contentForMapple.height / 2;    
     }
     return {
       x: posX,
@@ -123,6 +134,7 @@ export default class ToolTip extends Component {
     this.setTime = setTimeout(() => {
       this.setState({
       mouseIsOver: true,
+      default: false,
       pos: this.float ? this.getPositionAroundCursor(fixedXY) : this.getPositionAroundDom(fixedXY, widthHeight)
     });
     }, this.timeOut);

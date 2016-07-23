@@ -51,7 +51,6 @@ export default class Plate extends Component {
     } else if(direction === 'left') {
       Object.assign(triangleTipStyle, styleLeft);
     }
-    console.log(this.props.plateWidthHeight);
     return (
       <div ref={'asd'} style={{position: 'absolute',
         top: pos.y,

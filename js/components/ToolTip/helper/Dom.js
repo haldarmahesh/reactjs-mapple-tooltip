@@ -9,4 +9,7 @@ export default class Dom {
       height: this.domNode.offsetHeight
     }
   }
+  getDomInfo() {
+    return this.domNode.getBoundingClientRect();
+  }
 }
