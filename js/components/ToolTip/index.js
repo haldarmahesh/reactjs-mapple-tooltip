@@ -40,6 +40,8 @@ export default class ToolTip extends Component {
           <Plate
           visible={this.state.mouseIsOver}
           ref={'plateComp'}
+          backgroundColor={this.state.backgroundColor}
+          textColor={this.state.textColor}
           default={this.state.default}
           pos={this.state.pos}
           direction={this.state.direction}
@@ -71,7 +73,9 @@ export default class ToolTip extends Component {
       float: props.float || false,
       direction: props.direction || 'top',
       borderRadius: props.borderRadius || '3',
-      tipPosition: props.tipPosition >= 0 && props.tipPosition <= 100 ? props.tipPosition : 50
+      tipPosition: props.tipPosition >= 0 && props.tipPosition <= 100 ? props.tipPosition : 50,
+      backgroundColor: props.backgroundColor || 'black',
+      textColor: props.textColor || 'white'
     };
   }
   handleMouseEnter(event) {

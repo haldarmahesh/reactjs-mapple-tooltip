@@ -57,9 +57,9 @@ export default class Plate extends Component {
     const tipLocationVertical = `${(plateWidthHeight.height * this.props.tipPosition/100) - 5}px`;
     const tipLocationHorizontal = `${(plateWidthHeight.width * this.props.tipPosition/100) - 5}px`;
     const style = {
-      backgroundColor: 'black',
+      backgroundColor: this.props.backgroundColor,
       padding: '5px',
-      color: 'white',
+      color: this.props.textColor,
       borderRadius: `${this.props.borderRadius}px`
     }
     const triangleTipStyle = {
