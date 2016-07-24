@@ -104,6 +104,7 @@ export default class Plate extends Component {
       <div ref={'asd'} style={{position: 'absolute',
         top: pos.y,
         left: pos.x,
+        zIndex: '10000',
         opacity: opacity,
       WebkitTransition: 'opacity .25s ease-in-out',
       msTransition: 'opacity .25s ease-in-out'}}>
