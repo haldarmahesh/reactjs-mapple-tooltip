@@ -6,11 +6,12 @@ import Dom from './helper/Dom.js';
 export default class ToolTip extends Component {
   constructor(props) {
     super(props);
-    this.setPropsValues(props);
+    this.state = this.setPropsValues(props);
     this.setTime = null;
-    this.timeOut = this.float ? 0 : 200;
+    this.timeOut = this.state.float ? 0 : 200;
     this.gap = 10;
-    this.state = this.initialState();
+    // = this.initialState();
+    this.altered = false;
   }
   // componentDidUpdate(nextProps) {
   //   if (this.state.default) {
@@ -34,7 +35,7 @@ export default class ToolTip extends Component {
           visible={this.state.mouseIsOver}
           ref={'plateComp'}
           pos={this.state.pos}
-          direction={this.direction}
+          direction={this.state.direction}
           content={this.props.children[1]}
           plateWidthHeight={this.state.plateWidthHeight}/>
           <div ref="contentForMapple">
@@ -45,8 +46,13 @@ export default class ToolTip extends Component {
     );
   }
   setPropsValues(props) {
-    this.float = props.float || false;
-    this.direction = props.direction || 'top';
+    return {
+      mouseIsOver: false,
+      pos: {x: -1000, y: -1000},
+      default: true,
+      float: props.float || false,
+      direction: props.direction || 'top'
+    };
   }
   initialState() {
     return {
@@ -62,60 +68,24 @@ export default class ToolTip extends Component {
     let distanceY = 0;
     let posX = 0;
     let posY = 0;
-    if (this.direction === 'top') {
+    if (this.state.direction === 'top') {
       distanceX = 0;
       distanceY = -this.gap;
       posX = referenceXY.x - contentForMapple.left - plateDom.width / 2 + distanceX;
       posY = referenceXY.y - contentForMapple.top - plateDom.height + distanceY;
-    } else if (this.direction === 'right') {
+    } else if (this.state.direction === 'right') {
       distanceX = this.gap + 5;
       distanceY = 0;
       posX = referenceXY.x - contentForMapple.left + distanceX;
       posY = referenceXY.y - plateDom.height/2 - contentForMapple.top;
-    } else if (this.direction === 'bottom') {
+    } else if (this.state.direction === 'bottom') {
       distanceX = 0;
       distanceY = this.gap + 10;
       posX = referenceXY.x - contentForMapple.left - plateDom.width / 2 + distanceX;
       posY = referenceXY.y - contentForMapple.top + distanceY;
       
-    } else if (this.direction === 'left') {
-      distanceX = -this.gap;
-      distanceY = 0;
-      posX = referenceXY.x - contentForMapple.left - plateDom.width + distanceX
-      posY = referenceXY.y - plateDom.height/2 - contentForMapple.top;
-    }
-    return {
-      x: posX,
-      y: posY
-    }
-  }
-  getPositionAroundDom() {
-    const plateDom = new Dom(this.refs.plateComp).getDomInfo();
-    const contentForMapple = new Dom(this.refs.contentForMapple).getDomInfo();
-    let distanceX = 0;
-    let distanceY = 0;
-    let posX = 0;
-    let posY = 0;
-    if (this.direction === 'top') {
-      distanceX = 0;
-      distanceY = -this.gap;
-      posX = contentForMapple.width/2 - plateDom.width/2 + distanceX;
-      posY = - plateDom.height + distanceY;
-    } else if (this.direction === 'right') {
-      distanceX = this.gap + 5;
-      distanceY = 0;
-      posX = contentForMapple.width + distanceX;
-      posY = -plateDom.height / 2 + contentForMapple.height / 2;
-    } else if (this.direction === 'bottom') {
-      distanceX = 0;
-      distanceY = this.gap;
-      posX = contentForMapple.width / 2 - plateDom.width / 2 + distanceX;
-      posY = contentForMapple.height + distanceY;
-    } else if (this.direction === 'left') {
-      distanceX = -this.gap;
-      distanceY = 0;
-      posX = -plateDom.width + distanceX;
-      posY = -plateDom.height / 2 + contentForMapple.height / 2;    
+    } else if (this.state.direction === 'left') {
+      
     }
     return {
       x: posX,
@@ -123,38 +93,85 @@ export default class ToolTip extends Component {
     }
   }
   handleMouseEnter(event) {
-    const position = new Position(event);
-    const fixedXY = position.getFixedCoordinates();
-    const widthHeight = position.getWidthHeight();
-    const PlateDom = new Dom(this.refs.plateComp);
-    const plateDimensions = PlateDom.getDimensions();
+    const position = new Position();
+    const fixedXY = position.getFixedCoordinates(event);
+    const widthHeight = position.getWidthHeight(event);
+    const plateDom = new Dom(this.refs.plateComp);
+    const plateDimensions = plateDom.getDimensions();
+    const contentForMapple = new Dom(this.refs.contentForMapple).getDomInfo();
+    const newPositionAroundDom = position.getPositionAroundDom(this.state.direction, plateDom.getDomInfo(), contentForMapple);
+    const newPositionAroundCursor = position.getPositionAroundCursor(fixedXY, this.state.direction, plateDom.getDomInfo(), contentForMapple);
     this.setState({
       plateWidthHeight: plateDimensions
-    })
+    });
+    const newPosition = this.state.float ? newPositionAroundCursor : newPositionAroundDom;
     this.setTime = setTimeout(() => {
       this.setState({
       mouseIsOver: true,
       default: false,
-      pos: this.float ? this.getPositionAroundCursor(fixedXY) : this.getPositionAroundDom()
+      pos: newPosition
     });
+    this.checkIfPlateGoingOut();
     }, this.timeOut);
   }
 
   handleMouseLeave() {
     clearTimeout(this.setTime);
     this.setTime = setTimeout(() => {
-      this.setState(this.initialState())
+      this.setState(this.setPropsValues(this.props));
     }, this.timeOut);
   }
 
   handleMouseMove(event) {
-    if (!this.float) {
+    if (!this.state.float) {
       return;
     }
     const position = new Position(event);
-    const mousePosition = position.getFloatCoordinates();
+    const mousePosition = position.getFloatCoordinates(event);
+    const plateDom = new Dom(this.refs.plateComp);
+    const contentForMapple = new Dom(this.refs.contentForMapple).getDomInfo();
+    const newPositionAroundCursor = position.getPositionAroundCursor(mousePosition, this.state.direction, plateDom.getDomInfo(), contentForMapple);
+    
+    this.checkIfPlateGoingOut();
     this.setState({
-      pos: this.getPositionAroundCursor(mousePosition)
+      pos: newPositionAroundCursor
     });
+  }
+  checkIfPlateGoingOut() {
+    const plateDom = new Dom(this.refs.plateComp).getDomInfo();
+    const contentForMapple = new Dom(this.refs.contentForMapple).getDomInfo();
+    if (this.props.direction === 'left' && plateDom.left < 0 && !this.state.default) {
+      this.setState({
+        direction: 'right'
+      });
+      if (!this.state.float) {
+        this.setState({
+          pos: {
+            x: contentForMapple.left,
+            y: contentForMapple.height / 2 - plateDom.height / 2
+          }
+        });
+      }
+    } 
+    else if(this.props.direction === 'top' && !this.state.default) {
+       if (plateDom.top < 0) {
+          this.setState({
+            direction: 'bottom'
+          }); 
+          if (!this.state.float) {
+            this.setState({
+              pos: {
+                x: contentForMapple.width / 2 - plateDom.width / 2,
+                y: contentForMapple.height
+              }
+            });
+          }
+       }
+       else if (plateDom.left < 0) {
+         this.setState({
+           direction: 'right'
+         });
+       }
+    }
   }
 }
