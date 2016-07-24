@@ -1,3 +1,4 @@
+import mappleList from './mappleTypeList.js';
 export default class MappleTypeCSS {
   constructor(backgroundColor, textColor, borderRadius, plateWidthHeight, tipPosition, direction, mappleType) {
     this.backgroundColor = backgroundColor;
@@ -7,31 +8,7 @@ export default class MappleTypeCSS {
     this.tipPosition = tipPosition;
     this.direction = direction;
     this.mappleType = mappleType;
-    this.mappleTypeList = {
-      default: {
-        backgroundColor: this.backgroundColor,
-        textColor: this.textColor
-      },
-      success: {
-        backgroundColor: '#DFF2BF',
-        textColor: '#5B931F'
-      },
-      warning: {
-        backgroundColor: '#FEEFB3',
-        textColor: '#9F6000'
-      },
-      info: {
-        backgroundColor: '#BDE5F8',
-        textColor: '#00529B'
-      },
-      error: {
-        backgroundColor: '#FFBABA',
-        textColor: '#DA0B16'
-      }
-    };
-    // warning: {},
-    //   info: {},
-    //   error: {}
+    this.mappleTypeList = mappleList(backgroundColor, textColor);  
   }
   getPlateStyle() {
     return {

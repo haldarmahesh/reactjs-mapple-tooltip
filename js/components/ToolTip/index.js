@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import Plate from './Plate';
 import Position from './helper/Position.js';
 import Dom from './helper/Dom.js';
+import { typeList } from './Plate/mappleTypeList.js';
 
 export default class ToolTip extends Component {
   constructor(props) {
     super(props);
+    this.mappleTypeList = typeList();    
     this.state = this.setPropsValues(props);
     this.setTime = null;
     this.timeOut = this.state.float ? 0 : 200;
@@ -77,7 +79,7 @@ export default class ToolTip extends Component {
       tipPosition: props.tipPosition >= 0 && props.tipPosition <= 100 ? props.tipPosition : 50,
       backgroundColor: props.backgroundColor || 'black',
       textColor: props.textColor || 'white',
-      mappleType: props.mappleType || 'default'
+      mappleType: this.mappleTypeList.includes(props.mappleType) ? props.mappleType : 'default'
     };
   }
   handleMouseEnter(event) {
