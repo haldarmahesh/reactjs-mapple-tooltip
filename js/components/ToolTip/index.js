@@ -43,6 +43,7 @@ export default class ToolTip extends Component {
           backgroundColor={this.state.backgroundColor}
           textColor={this.state.textColor}
           default={this.state.default}
+          mappleType={this.state.mappleType}
           pos={this.state.pos}
           direction={this.state.direction}
           mapple={this.state.mappleInfo}
@@ -75,7 +76,8 @@ export default class ToolTip extends Component {
       borderRadius: props.borderRadius || '3',
       tipPosition: props.tipPosition >= 0 && props.tipPosition <= 100 ? props.tipPosition : 50,
       backgroundColor: props.backgroundColor || 'black',
-      textColor: props.textColor || 'white'
+      textColor: props.textColor || 'white',
+      mappleType: props.mappleType || 'default'
     };
   }
   handleMouseEnter(event) {

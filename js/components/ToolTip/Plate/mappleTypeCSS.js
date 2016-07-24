@@ -1,54 +1,88 @@
 export default class MappleTypeCSS {
-  constructor(backgroundColor, textColor, borderRadius, plateWidthHeight, tipPosition, direction) {
+  constructor(backgroundColor, textColor, borderRadius, plateWidthHeight, tipPosition, direction, mappleType) {
     this.backgroundColor = backgroundColor;
     this.textColor = textColor;
     this.borderRadius = borderRadius;
     this.plateWidthHeight = plateWidthHeight;
     this.tipPosition = tipPosition;
     this.direction = direction;
+    this.mappleType = mappleType;
+    this.mappleTypeList = {
+      default: {
+        backgroundColor: this.backgroundColor,
+        textColor: this.textColor
+      },
+      success: {
+        backgroundColor: '#DFF2BF',
+        textColor: '#5B931F'
+      },
+      warning: {
+        backgroundColor: '#FEEFB3',
+        textColor: '#9F6000'
+      },
+      info: {
+        backgroundColor: '#BDE5F8',
+        textColor: '#00529B'
+      },
+      error: {
+        backgroundColor: '#FFBABA',
+        textColor: '#DA0B16'
+      }
+    };
+    // warning: {},
+    //   info: {},
+    //   error: {}
   }
   getPlateStyle() {
     return {
-      backgroundColor: this.backgroundColor,
-      color: this.textColor,
+      backgroundColor: this.mappleTypeList[this.mappleType].backgroundColor,
+      color: this.mappleTypeList[this.mappleType].textColor,
       padding: '5px',
       borderRadius: `${this.borderRadius}px`
     }
   }
-  getTipStyle() {
-    const tipLocationVertical = `${(this.plateWidthHeight.height * this.tipPosition/100) - 5}px`;
-    const tipLocationHorizontal = `${(this.plateWidthHeight.width * this.tipPosition/100) - 5}px`;
+  getOuterPlateStyle() {
+    return {
+      position: 'absolute',
+      zIndex: '10000',
+      WebkitTransition: 'opacity .25s ease-in-out',
+      msTransition: 'opacity .25s ease-in-out'
+    }
+  }
+  getTipStyle(tipSize) {
+    const tipLocationVertical = `${(this.plateWidthHeight.height * this.tipPosition/100) - tipSize}px`;
+    const tipLocationHorizontal = `${(this.plateWidthHeight.width * this.tipPosition/100) - tipSize}px`;
     const triangleTipStyle = {
       width: '0',
       position: 'absolute',
       height: '0'
     };
     const styleTop = {
-      borderLeft: '5px solid transparent',
-      borderRight: '5px solid transparent',
-      borderTop: `5px solid ${this.backgroundColor}`,
+      borderLeft: `${tipSize}px solid transparent`,
+      borderRight: `${tipSize}px solid transparent`,
+      borderTop: `${tipSize}px solid ${this.getPlateStyle().backgroundColor}`,
       left: tipLocationHorizontal
     };
     const styleRight = {
-      borderTop: '5px solid transparent',
-      borderBottom: '5px solid transparent',
-      borderRight: `5px solid ${this.backgroundColor}`,
+      borderTop: `${tipSize}px solid transparent`,
+      borderBottom: `${tipSize}px solid transparent`,
+      borderRight: `${tipSize}px solid ${this.getPlateStyle().backgroundColor}`,
       top: tipLocationVertical,
       left: '-5px'
     };
     const styleBottom = {
-      borderLeft: '5px solid transparent',
-      borderRight: '5px solid transparent',
-      borderBottom: `5px solid ${this.backgroundColor}`,
-      top: '-5px',
+      borderLeft: `${tipSize}px solid transparent`,
+      borderRight: `${tipSize}px solid transparent`,
+      borderBottom: `${tipSize}px solid ${this.getPlateStyle().backgroundColor}`,
+      top: `-${tipSize}px`,
       left: tipLocationHorizontal
     };
     const styleLeft = {
-      borderTop: '5px solid transparent',
-      borderBottom: '5px solid transparent',
-      borderLeft: `5px solid ${this.backgroundColor}`,
-      top: tipLocationVertical,
-      right: '-5px'
+      borderTop: `${tipSize}px solid transparent`,
+      borderBottom: `${tipSize}px solid transparent`,
+      borderLeft: `${tipSize}px solid ${this.getPlateStyle().backgroundColor}`,
+      top: tipLocationVertical, 
+      right: `-${tipSize}px`
     }
     if(this.direction === 'top') {
       Object.assign(triangleTipStyle, styleTop);

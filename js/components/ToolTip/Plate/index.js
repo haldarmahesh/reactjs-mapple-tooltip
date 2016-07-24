@@ -59,18 +59,18 @@ export default class Plate extends Component {
       this.props.borderRadius,
       this.props.plateWidthHeight || {height: 0, width: 0},
       this.props.tipPosition,
-      this.props.direction);
-    
+      this.props.direction,
+      this.props.mappleType);
+    const outerPlateStyle = this.mappleTypeCSS.getOuterPlateStyle();
+    Object.assign(outerPlateStyle, {
+      top: pos.y,
+      left: pos.x,
+      opacity: opacity
+    });
     const style = this.mappleTypeCSS.getPlateStyle();
-    const triangleTipStyle = this.mappleTypeCSS.getTipStyle();
+    const triangleTipStyle = this.mappleTypeCSS.getTipStyle(5);
     return (
-      <div ref={'asd'} style={{position: 'absolute',
-        top: pos.y,
-        left: pos.x,
-        zIndex: '10000',
-        opacity: opacity,
-      WebkitTransition: 'opacity .25s ease-in-out',
-      msTransition: 'opacity .25s ease-in-out'}}>
+      <div ref={'asd'} style={outerPlateStyle}>
         <div style={style}>
           {this.props.content}
         </div>
