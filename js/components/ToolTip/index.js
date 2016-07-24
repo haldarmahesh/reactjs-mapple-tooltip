@@ -45,6 +45,8 @@ export default class ToolTip extends Component {
           direction={this.state.direction}
           mapple={this.state.mappleInfo}
           content={this.props.children[1]}
+          borderRadius={this.state.borderRadius}
+          tipPosition={this.state.tipPosition}
           plateWidthHeight={this.state.plateWidthHeight}/>
           <div ref="contentForMapple">
             { this.props.children[0] }
@@ -67,7 +69,9 @@ export default class ToolTip extends Component {
       pos: {x: -1000, y: -1000},
       default: true,
       float: props.float || false,
-      direction: props.direction || 'top'
+      direction: props.direction || 'top',
+      borderRadius: props.borderRadius || '3',
+      tipPosition: props.tipPosition >= 0 && props.tipPosition <= 100 ? props.tipPosition : 50
     };
   }
   handleMouseEnter(event) {

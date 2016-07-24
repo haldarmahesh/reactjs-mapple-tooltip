@@ -54,10 +54,13 @@ export default class Plate extends Component {
     const { pos, direction } = this.state;
     const opacity = this.props.visible ? '1' : '0';
     const plateWidthHeight = this.props.plateWidthHeight || {height: 0, width: 0};
+    const tipLocationVertical = `${(plateWidthHeight.height * this.props.tipPosition/100) - 5}px`;
+    const tipLocationHorizontal = `${(plateWidthHeight.width * this.props.tipPosition/100) - 5}px`;
     const style = {
       backgroundColor: 'black',
       padding: '5px',
-      color: 'white'
+      color: 'white',
+      borderRadius: `${this.props.borderRadius}px`
     }
     const triangleTipStyle = {
       width: '0',
@@ -68,13 +71,13 @@ export default class Plate extends Component {
       borderLeft: '5px solid transparent',
       borderRight: '5px solid transparent',
       borderTop: `5px solid ${style.backgroundColor}`,
-      left: '46%'
+      left: tipLocationHorizontal
     };
     const styleRight = {
       borderTop: '5px solid transparent',
       borderBottom: '5px solid transparent',
       borderRight: `5px solid ${style.backgroundColor}`,
-      top: (plateWidthHeight.height/2 - 5)+ 'px',
+      top: tipLocationVertical,
       left: '-5px'
     };
     const styleBottom = {
@@ -82,13 +85,13 @@ export default class Plate extends Component {
       borderRight: '5px solid transparent',
       borderBottom: `5px solid ${style.backgroundColor}`,
       top: '-5px',
-      left: '46%'
+      left: tipLocationHorizontal
     };
     const styleLeft = {
       borderTop: '5px solid transparent',
       borderBottom: '5px solid transparent',
       borderLeft: `5px solid ${style.backgroundColor}`,
-      top: (plateWidthHeight.height/2 - 5)+ 'px',
+      top: tipLocationVertical,
       right: '-5px'
     }
     if(direction === 'top') {
