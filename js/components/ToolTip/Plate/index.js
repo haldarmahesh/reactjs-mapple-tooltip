@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Dom from '../helper/Dom';
+import MappleTypeCSS from './mappleTypeCSS';
 export default class Plate extends Component {
   constructor(props) {
     super(props);
@@ -53,56 +54,15 @@ export default class Plate extends Component {
   render() {
     const { pos, direction } = this.state;
     const opacity = this.props.visible ? '1' : '0';
-    const plateWidthHeight = this.props.plateWidthHeight || {height: 0, width: 0};
-    const tipLocationVertical = `${(plateWidthHeight.height * this.props.tipPosition/100) - 5}px`;
-    const tipLocationHorizontal = `${(plateWidthHeight.width * this.props.tipPosition/100) - 5}px`;
-    const style = {
-      backgroundColor: this.props.backgroundColor,
-      padding: '5px',
-      color: this.props.textColor,
-      borderRadius: `${this.props.borderRadius}px`
-    }
-    const triangleTipStyle = {
-      width: '0',
-      position: 'absolute',
-      height: '0'
-    };
-    const styleTop = {
-      borderLeft: '5px solid transparent',
-      borderRight: '5px solid transparent',
-      borderTop: `5px solid ${style.backgroundColor}`,
-      left: tipLocationHorizontal
-    };
-    const styleRight = {
-      borderTop: '5px solid transparent',
-      borderBottom: '5px solid transparent',
-      borderRight: `5px solid ${style.backgroundColor}`,
-      top: tipLocationVertical,
-      left: '-5px'
-    };
-    const styleBottom = {
-      borderLeft: '5px solid transparent',
-      borderRight: '5px solid transparent',
-      borderBottom: `5px solid ${style.backgroundColor}`,
-      top: '-5px',
-      left: tipLocationHorizontal
-    };
-    const styleLeft = {
-      borderTop: '5px solid transparent',
-      borderBottom: '5px solid transparent',
-      borderLeft: `5px solid ${style.backgroundColor}`,
-      top: tipLocationVertical,
-      right: '-5px'
-    }
-    if(direction === 'top') {
-      Object.assign(triangleTipStyle, styleTop);
-    } else if(direction === 'right') {
-      Object.assign(triangleTipStyle, styleRight);
-    } else if(direction === 'bottom') {
-      Object.assign(triangleTipStyle, styleBottom);
-    } else if(direction === 'left') {
-      Object.assign(triangleTipStyle, styleLeft);
-    }
+    this.mappleTypeCSS = new MappleTypeCSS(this.props.backgroundColor,
+      this.props.textColor,
+      this.props.borderRadius,
+      this.props.plateWidthHeight || {height: 0, width: 0},
+      this.props.tipPosition,
+      this.props.direction);
+    
+    const style = this.mappleTypeCSS.getPlateStyle();
+    const triangleTipStyle = this.mappleTypeCSS.getTipStyle();
     return (
       <div ref={'asd'} style={{position: 'absolute',
         top: pos.y,
