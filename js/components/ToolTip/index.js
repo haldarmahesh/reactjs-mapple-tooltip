@@ -10,8 +10,8 @@ export default class ToolTip extends Component {
     this.setTime = null;
     this.timeOut = this.state.float ? 0 : 200;
     this.gap = 10;
-    // = this.initialState();
     this.altered = false;
+    this.lastPlateDom = null;
   }
   // componentDidUpdate(nextProps) {
   //   if (this.state.default) {
@@ -19,6 +19,12 @@ export default class ToolTip extends Component {
   //     console.log(PlateDomNew.getDomInfo(), this.state.default);
   //   }
   // }
+  componentDidMount() {
+    this.setState({
+      mappleInfo: this.getPlateAndMappleInfo().mapple
+    })
+  }
+  
   render() {
     const { mouseIsOver } = this.state;
     const style = {
@@ -34,8 +40,10 @@ export default class ToolTip extends Component {
           <Plate
           visible={this.state.mouseIsOver}
           ref={'plateComp'}
+          default={this.state.default}
           pos={this.state.pos}
           direction={this.state.direction}
+          mapple={this.state.mappleInfo}
           content={this.props.children[1]}
           plateWidthHeight={this.state.plateWidthHeight}/>
           <div ref="contentForMapple">
@@ -49,8 +57,8 @@ export default class ToolTip extends Component {
     const plateDom = new Dom(this.refs.plateComp).getDomInfo();
     const contentForMapple = new Dom(this.refs.contentForMapple).getDomInfo();
     return {
-      plate: plateDom,
-      mapple: contentForMapple
+      plate: plateDom || {},
+      mapple: contentForMapple || {}
     }
   }
   setPropsValues(props) {
@@ -60,13 +68,6 @@ export default class ToolTip extends Component {
       default: true,
       float: props.float || false,
       direction: props.direction || 'top'
-    };
-  }
-  initialState() {
-    return {
-      mouseIsOver: false,
-      pos: {x: -1000, y: -1000},
-      default: true
     };
   }
   handleMouseEnter(event) {
@@ -108,47 +109,68 @@ export default class ToolTip extends Component {
     const mousePosition = position.getFloatCoordinates(event);
     const plateDom = this.getPlateAndMappleInfo().plate;
     const contentForMapple = this.getPlateAndMappleInfo().mapple;
-    const newPositionAroundCursor = position.getPositionAroundCursor(mousePosition, this.state.direction, plateDom, contentForMapple);
-    
+    let newPositionAroundCursor = position.getPositionAroundCursor(mousePosition, this.state.direction, plateDom, contentForMapple);
     this.checkIfPlateGoingOut();
+    let newDirection = '';
+    if (!this.state.default) {
+      if (plateDom.left < 0) {
+        newDirection = this.reverseDirection('left');
+        this.setState({
+          direction: newDirection
+        });
+      } else if(plateDom.top < 0) {
+        newDirection = this.reverseDirection('top');
+        this.setState({
+          direction: newDirection
+        })
+      } else if (plateDom.right > window.innerWidth) {
+        newDirection = this.reverseDirection('right');
+        this.setState({
+          direction: newDirection
+        });
+      } else if (plateDom.bottom > window.innerHeight) {
+        newDirection = this.reverseDirection('bottom');
+        this.setState({
+          direction: newDirection
+        });
+      }
+    }
     this.setState({
       pos: newPositionAroundCursor
     });
   }
-  checkIfPlateGoingOut() {
-    const plateDom = new Dom(this.refs.plateComp).getDomInfo();
-    const contentForMapple = new Dom(this.refs.contentForMapple).getDomInfo();
-    if (this.props.direction === 'left' && plateDom.left < 0 && !this.state.default) {
-      this.setState({
-        direction: 'right'
-      });
-      if (!this.state.float) {
-        this.setState({
-          pos: {
-            x: contentForMapple.left,
-            y: contentForMapple.height / 2 - plateDom.height / 2
-          }
-        });
+  reverseDirection(reverseOf) {
+    if (this.props.direction === 'bottom' || this.props.direction === 'left' || this.props.direction === 'top' || this.props.direction === 'right') {
+      if (reverseOf === 'left') {
+        return 'right';
+      } else if (reverseOf === 'bottom') {
+        return 'top';
+      } else if (reverseOf === 'right') {
+        return 'left';
+      } else if (reverseOf === 'top') {
+        return 'bottom';
       }
-    } 
-    else if(this.props.direction === 'top' && !this.state.default) {
-       if (plateDom.top < 0) {
+    }
+    // } else if(this.props.direction === 'left') {
+    //    if (reverseOf === 'left') {
+    //      return 'right';
+    //    }
+    // }
+  }
+  checkIfPlateGoingOut() {
+    const plate = this.getPlateAndMappleInfo().plate;
+    const mapple = this.getPlateAndMappleInfo().mapple;
+    const position = new Position();
+    if(this.props.direction === 'top' && !this.state.default) {
+       if (plate.top < 0) {
           this.setState({
             direction: 'bottom'
           }); 
           if (!this.state.float) {
-            this.setState({
-              pos: {
-                x: contentForMapple.width / 2 - plateDom.width / 2,
-                y: contentForMapple.height
-              }
-            });
+            this.setState(
+              position.getPositionAroundDom(this.state.direction, plate, mapple)
+            );
           }
-       }
-       else if (plateDom.left < 0) {
-         this.setState({
-           direction: 'right'
-         });
        }
     }
   }

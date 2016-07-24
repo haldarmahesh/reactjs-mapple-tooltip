@@ -1,7 +1,57 @@
 import React, { Component } from 'react';
+import Dom from '../helper/Dom';
 export default class Plate extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      pos: {x: -1000, y: -1000},
+      direction: 'top',
+      originalPos: true
+    }
+  }
+  componentDidUpdate(props) {
+     if (!this.props.default) {
+
+      //  console.log(props.mapple, props.pos);
+        // console.log('trace',props.pos.y, props.mapple, plate);
+        // const plate = new Dom(this.refs.asd).getDomInfo();        
+        // if (plate.left < -15) {
+        //   this.setState({
+        //     pos: {
+        //       x:  0,
+        //       y: props.pos.y
+        //     }
+        //   });
+        // } else if (plate.right > window.innerWidth) {
+        //   this.setState({
+        //     pos: {
+        //       x: props.mapple.width - plate.width - 10,
+        //       y: props.pos.y
+        //     }
+        //   })
+        // } 
+        // else if (plate.top < -10) {
+        //   console.log('matter', props.pos.x, props.pos.y);
+        //   this.setState({
+        //     pos: {
+        //       x: 20,
+        //       y: 24
+        //     },
+        //     direction: 'bottom'
+        //   })
+        // }
+    }
+  }
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      pos: nextProps.pos,
+      direction: nextProps.direction
+    });
+  }
+  
+  
   render() {
-    const { pos, direction } = this.props;
+    const { pos, direction } = this.state;
     const opacity = this.props.visible ? '1' : '0';
     const plateWidthHeight = this.props.plateWidthHeight || {height: 0, width: 0};
     const style = {
