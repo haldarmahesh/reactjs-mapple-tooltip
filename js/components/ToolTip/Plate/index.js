@@ -9,8 +9,8 @@ export default class Plate extends Component {
       originalPos: true
     }
   }
-  componentDidUpdate(props) {
-     if (!this.props.default) {
+  // componentDidUpdate(props) {
+  //    if (!this.props.default) {
 
       //  console.log(props.mapple, props.pos);
         // console.log('trace',props.pos.y, props.mapple, plate);
@@ -40,8 +40,8 @@ export default class Plate extends Component {
         //     direction: 'bottom'
         //   })
         // }
-    }
-  }
+  //   }
+  // }
   componentWillReceiveProps(nextProps) {
     this.setState({
       pos: nextProps.pos,

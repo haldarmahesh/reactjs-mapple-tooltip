@@ -111,30 +111,6 @@ export default class ToolTip extends Component {
     const contentForMapple = this.getPlateAndMappleInfo().mapple;
     let newPositionAroundCursor = position.getPositionAroundCursor(mousePosition, this.state.direction, plateDom, contentForMapple);
     this.checkIfPlateGoingOut();
-    let newDirection = '';
-    if (!this.state.default) {
-      if (plateDom.left < 0) {
-        newDirection = this.reverseDirection('left');
-        this.setState({
-          direction: newDirection
-        });
-      } else if(plateDom.top < 0) {
-        newDirection = this.reverseDirection('top');
-        this.setState({
-          direction: newDirection
-        })
-      } else if (plateDom.right > window.innerWidth) {
-        newDirection = this.reverseDirection('right');
-        this.setState({
-          direction: newDirection
-        });
-      } else if (plateDom.bottom > window.innerHeight) {
-        newDirection = this.reverseDirection('bottom');
-        this.setState({
-          direction: newDirection
-        });
-      }
-    }
     this.setState({
       pos: newPositionAroundCursor
     });
@@ -151,27 +127,55 @@ export default class ToolTip extends Component {
         return 'bottom';
       }
     }
-    // } else if(this.props.direction === 'left') {
-    //    if (reverseOf === 'left') {
-    //      return 'right';
-    //    }
-    // }
   }
   checkIfPlateGoingOut() {
-    const plate = this.getPlateAndMappleInfo().plate;
+    const plateDom = this.getPlateAndMappleInfo().plate;
     const mapple = this.getPlateAndMappleInfo().mapple;
-    const position = new Position();
-    if(this.props.direction === 'top' && !this.state.default) {
-       if (plate.top < 0) {
-          this.setState({
-            direction: 'bottom'
-          }); 
-          if (!this.state.float) {
-            this.setState(
-              position.getPositionAroundDom(this.state.direction, plate, mapple)
-            );
+    let newDirection = '';
+    if (!this.state.default) {
+      let newPosition = this.state.pos;
+      if (plateDom.left < 0) {
+        newDirection = this.reverseDirection('left');
+        this.setState({
+          direction: newDirection
+        });
+      } else if(plateDom.top < 0) {
+        newDirection = this.reverseDirection('top');
+        if (!this.state.float) {
+          newPosition = {
+            x: mapple.width - plateDom.width - 10,
+            y: mapple.height + 10
+          }  
+        }
+        this.setState({
+          direction: newDirection,
+          pos: newPosition
+        })
+      } else if (plateDom.right > window.innerWidth) {
+        newDirection = this.reverseDirection('right');
+        if (!this.state.float) {
+          newPosition = {
+            x: mapple.width - plateDom.width - 10,
+            y: this.state.pos.y
+          } 
+        }
+        this.setState({
+          direction: newDirection,
+          pos: newPosition
+        });
+      } else if (plateDom.bottom > window.innerHeight) {
+        newDirection = this.reverseDirection('bottom');
+        if (!this.state.float) {
+          newPosition = {
+            x: this.state.pos.x,
+            y: -plateDom.height - 10
           }
-       }
+        }
+        this.setState({
+          direction: newDirection,
+          pos: newPosition
+        });
+      }
     }
   }
 }
