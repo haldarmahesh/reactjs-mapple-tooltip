@@ -34,7 +34,7 @@ export default class ToolTip extends Component {
       position: 'relative'
     }
     return (
-      <span>
+      <span style={this.props.style}>
         <span style={style}
           onMouseEnter={event => ::this.handleMouseEnter(event)}
           onMouseLeave={::this.handleMouseLeave}
@@ -79,7 +79,8 @@ export default class ToolTip extends Component {
       tipPosition: props.tipPosition >= 0 && props.tipPosition <= 100 ? props.tipPosition : 50,
       backgroundColor: props.backgroundColor || 'black',
       textColor: props.textColor || 'white',
-      mappleType: this.mappleTypeList.includes(props.mappleType) ? props.mappleType : 'default'
+      mappleType: this.mappleTypeList.includes(props.mappleType) ? props.mappleType : 'default',
+      changed: false
     };
   }
   handleMouseEnter(event) {
@@ -95,14 +96,21 @@ export default class ToolTip extends Component {
     this.setState({
       plateWidthHeight: plateDimensions
     });
-    const newPosition = this.state.float ? newPositionAroundCursor : newPositionAroundDom;
+    let newPosition = this.state.float ? newPositionAroundCursor : newPositionAroundDom;
+    if (this.state.default) {
+      newPosition = {
+        x: -1000,
+        y: -1000
+      }
+    }
+    console.log('new', newPosition);
     this.setTime = setTimeout(() => {
       this.setState({
       mouseIsOver: true,
       default: false,
       pos: newPosition
     });
-    this.checkIfPlateGoingOut();
+    // this.checkIfPlateGoingOut();
     }, this.timeOut);
   }
 
@@ -122,7 +130,7 @@ export default class ToolTip extends Component {
     const plateDom = this.getPlateAndMappleInfo().plate;
     const contentForMapple = this.getPlateAndMappleInfo().mapple;
     let newPositionAroundCursor = position.getPositionAroundCursor(mousePosition, this.state.direction, plateDom, contentForMapple);
-    this.checkIfPlateGoingOut();
+    // this.checkIfPlateGoingOut();
     this.setState({
       pos: newPositionAroundCursor
     });
@@ -146,12 +154,13 @@ export default class ToolTip extends Component {
     let newDirection = '';
     if (!this.state.default) {
       let newPosition = this.state.pos;
-      if (plateDom.left < 0) {
+      if (plateDom.left < 0 && !this.state.changed) {
         newDirection = this.reverseDirection('left');
         this.setState({
-          direction: newDirection
+          direction: newDirection,
+          changed: true
         });
-      } else if(plateDom.top < 0) {
+      } else if(plateDom.top < 0 && !this.state.changed) {
         newDirection = this.reverseDirection('top');
         if (!this.state.float) {
           newPosition = {
@@ -161,9 +170,10 @@ export default class ToolTip extends Component {
         }
         this.setState({
           direction: newDirection,
-          pos: newPosition
+          pos: newPosition,
+          changed: true
         })
-      } else if (plateDom.right > window.innerWidth) {
+      } else if (plateDom.right > window.innerWidth && !this.state.changed) {
         newDirection = this.reverseDirection('right');
         if (!this.state.float) {
           newPosition = {
@@ -173,9 +183,10 @@ export default class ToolTip extends Component {
         }
         this.setState({
           direction: newDirection,
-          pos: newPosition
+          pos: newPosition,
+          changed: true
         });
-      } else if (plateDom.bottom > window.innerHeight) {
+      } else if (plateDom.bottom > window.innerHeight && !this.state.changed) {
         newDirection = this.reverseDirection('bottom');
         if (!this.state.float) {
           newPosition = {
@@ -185,7 +196,8 @@ export default class ToolTip extends Component {
         }
         this.setState({
           direction: newDirection,
-          pos: newPosition
+          pos: newPosition,
+          changed: true
         });
       }
     }

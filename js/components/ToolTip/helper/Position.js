@@ -33,29 +33,29 @@ export default class Position {
         distanceX = 0;
         distanceY = -this.gap;
         return {
-          x:  mapple.width/2 - plate.width/2 + distanceX,
-          y: - plate.height + distanceY
+          x:  mapple.left + mapple.width/2 - plate.width/2 ,
+          y: mapple.top - plate.height + distanceY
         };
       case 'right':
         distanceX = this.gap + 5;
         distanceY = 0;
         return {
-          x:  mapple.width + distanceX,
-          y: -plate.height / 2 + mapple.height / 2
+          x:  mapple.right + distanceX,
+          y: mapple.bottom - plate.height/2 - mapple.height / 2
         };
       case 'bottom':
         distanceX = 0;
         distanceY = this.gap;
         return {
-          x:  mapple.width / 2 - plate.width / 2 + distanceX,
-          y: mapple.height + distanceY
+          x:  mapple.left + mapple.width / 2 - plate.width/2 + distanceX,
+          y: mapple.bottom + distanceY
         };
       case 'left':
         distanceX = -this.gap;
         distanceY = 0;
         return {
-          x:  -plate.width + distanceX,
-          y: -plate.height / 2 + mapple.height / 2
+          x:  mapple.left - plate.width + distanceX,
+          y: mapple.top + mapple.height / 2 - plate.height / 2
         };   
       default:
         return {
@@ -74,29 +74,29 @@ export default class Position {
         distanceX = 0;
         distanceY = -this.gap;
         return {
-          x: referenceXY.x - mapple.left - plate.width / 2 + distanceX,
-          y: referenceXY.y - mapple.top - plate.height + distanceY
+          x: referenceXY.x - plate.width / 2,
+          y: referenceXY.y - plate.height + distanceY
         };
       case 'right':
         distanceX = this.gap + 5;
         distanceY = 0;
         return {
-          x: referenceXY.x - mapple.left + distanceX,
-          y: referenceXY.y - plate.height/2 - mapple.top
+          x: referenceXY.x + distanceX,
+          y: referenceXY.y - plate.height/2
         };
       case 'bottom':
         distanceX = 0;
         distanceY = this.gap + 10;
         return {
-          x: referenceXY.x - mapple.left - plate.width / 2 + distanceX,
-          y: referenceXY.y - mapple.top + distanceY
+          x: referenceXY.x - plate.width/2 + distanceX,
+          y: referenceXY.y + distanceY
         };
       case 'left':
         distanceX = -this.gap;
         distanceY = 0;
         return {
-          x: referenceXY.x - mapple.left - plate.width + distanceX,
-          y: referenceXY.y - plate.height/2 - mapple.top
+          x: referenceXY.x - plate.width + distanceX,
+          y: referenceXY.y - plate.height/2
         };   
       default:
         return {

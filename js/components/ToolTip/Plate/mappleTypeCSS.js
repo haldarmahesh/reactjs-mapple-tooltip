@@ -20,7 +20,7 @@ export default class MappleTypeCSS {
   }
   getOuterPlateStyle() {
     return {
-      position: 'absolute',
+      position: 'fixed',
       zIndex: '10000',
       WebkitTransition: 'opacity .25s ease-in-out',
       msTransition: 'opacity .25s ease-in-out'
