@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/haldarmahesh/reactjs-tool"
+    "url": "https://github.com/haldarmahesh/reactjs-mapple-tooltip"
   },
   "keywords": [
     "react",
@@ -20,7 +20,7 @@
   ],
   "author": "Mahesh Haldar <haldar.mahesh@gmail.com> (http://github.com/haldarmahesh)",
   "license": "MIT",
-  "homepage": "https://github.com/haldarmahesh/reactjs-tool",
+  "homepage": "https://github.com/haldarmahesh/reactjs-mapple-tooltip",
   "devDependencies": {
     "babel-core": "^6.0.20",
     "babel-eslint": "^4.1.3",
