@@ -97,13 +97,12 @@ export default class ToolTip extends Component {
       plateWidthHeight: plateDimensions
     });
     let newPosition = this.state.float ? newPositionAroundCursor : newPositionAroundDom;
-    if (this.state.default) {
+    if (this.state.default && this.state.float) {
       newPosition = {
         x: -1000,
         y: -1000
       }
     }
-    console.log('new', newPosition);
     this.setTime = setTimeout(() => {
       this.setState({
       mouseIsOver: true,
