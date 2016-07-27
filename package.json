@@ -4,12 +4,14 @@
   "description": "An easy to customize Tool tip react js component",
   "scripts": {
     "start": "node server.js",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "build:webpack": "NODE_ENV=production webpack --config config/webpack.config.js"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/haldarmahesh/reactjs-mapple-tooltip"
   },
+  "main": "lib/index.js",
   "keywords": [
     "react",
     "reactjs",
