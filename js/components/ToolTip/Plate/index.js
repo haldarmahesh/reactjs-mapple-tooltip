@@ -68,14 +68,12 @@ export default class Plate extends Component {
       opacity: opacity
     });
     const style = this.mappleTypeCSS.getPlateStyle();
-    const triangleTipStyle = this.mappleTypeCSS.getTipStyle(5);
     return (
       <div ref={'asd'} style={outerPlateStyle}>
         <div style={style}>
           {this.props.content}
         </div>
-        <div className="tip" style={triangleTipStyle}>
-        </div>
+        { this.mappleTypeCSS.renderTip() }
     </div>
     );
   }

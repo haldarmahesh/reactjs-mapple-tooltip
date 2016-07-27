@@ -1,3 +1,4 @@
+import React from 'react';
 import mappleList from './mappleTypeList.js';
 export default class MappleTypeCSS {
   constructor(backgroundColor, textColor, borderRadius, plateWidthHeight, tipPosition, direction, mappleType) {
@@ -17,16 +18,18 @@ export default class MappleTypeCSS {
     }
   }
   getOuterPlateStyle() {
+    const currentMapple =  this.mappleTypeList[this.mappleType];
     return {
       position: 'fixed',
       zIndex: '10000',
-      backgroundColor: this.mappleTypeList[this.mappleType].backgroundColor,
+      backgroundColor: currentMapple.backgroundColor,
+      border: currentMapple.border ? `1px solid ${currentMapple.textColor}` : null, 
       borderRadius: `${this.borderRadius}px`,
       WebkitTransition: 'opacity .25s ease-in-out',
       msTransition: 'opacity .25s ease-in-out'
     }
   }
-  getTipStyle(tipSize) {
+  getTipStyle(tipSize, color) {
     const tipLocationVertical = `${(this.plateWidthHeight.height * this.tipPosition/100) - tipSize}px`;
     const tipLocationHorizontal = `${(this.plateWidthHeight.width * this.tipPosition/100) - tipSize}px`;
     const triangleTipStyle = {
@@ -37,27 +40,27 @@ export default class MappleTypeCSS {
     const styleTop = {
       borderLeft: `${tipSize}px solid transparent`,
       borderRight: `${tipSize}px solid transparent`,
-      borderTop: `${tipSize}px solid ${this.getOuterPlateStyle().backgroundColor}`,
+      borderTop: `${tipSize}px solid ${color}`,
       left: tipLocationHorizontal
     };
     const styleRight = {
       borderTop: `${tipSize}px solid transparent`,
       borderBottom: `${tipSize}px solid transparent`,
-      borderRight: `${tipSize}px solid ${this.getOuterPlateStyle().backgroundColor}`,
+      borderRight: `${tipSize}px solid ${color}`,
       top: tipLocationVertical,
       left: '-5px'
     };
     const styleBottom = {
       borderLeft: `${tipSize}px solid transparent`,
       borderRight: `${tipSize}px solid transparent`,
-      borderBottom: `${tipSize}px solid ${this.getOuterPlateStyle().backgroundColor}`,
+      borderBottom: `${tipSize}px solid ${color}`,
       top: `-${tipSize}px`,
       left: tipLocationHorizontal
     };
     const styleLeft = {
       borderTop: `${tipSize}px solid transparent`,
       borderBottom: `${tipSize}px solid transparent`,
-      borderLeft: `${tipSize}px solid ${this.getOuterPlateStyle().backgroundColor}`,
+      borderLeft: `${tipSize}px solid ${color}`,
       top: tipLocationVertical, 
       right: `-${tipSize}px`
     }
@@ -71,5 +74,22 @@ export default class MappleTypeCSS {
       Object.assign(triangleTipStyle, styleLeft);
     }
     return triangleTipStyle;
+  }
+  renderTip() {
+    const currentMapple =  this.mappleTypeList[this.mappleType];
+    return (
+      <span>
+        { currentMapple.border ? this.tipDom(6.5, currentMapple.textColor ) : null}
+        {this.tipDom(5, this.getOuterPlateStyle().backgroundColor)}
+      </span>
+    );
+  }
+  tipDom(tipSize, color) {
+    console.log(tipSize, color);
+    const triangleTipStyle = this.getTipStyle(tipSize, color);
+    return (
+      <div className="tip" style={triangleTipStyle}>
+      </div>
+    );
   }
 }
