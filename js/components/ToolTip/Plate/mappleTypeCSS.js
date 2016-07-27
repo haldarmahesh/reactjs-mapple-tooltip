@@ -50,7 +50,7 @@ export default class MappleTypeCSS {
       borderBottom: `${tipSize}px solid transparent`,
       borderRight: `${tipSize}px solid ${color}`,
       top: tipLocationVertical,
-      left: '-5px'
+      left: `-${tipSize}px`
     };
     const styleBottom = {
       borderLeft: `${tipSize}px solid transparent`,
