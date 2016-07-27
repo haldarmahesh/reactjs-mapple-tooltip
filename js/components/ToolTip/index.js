@@ -3,6 +3,7 @@ import Plate from './Plate';
 import Position from './helper/Position.js';
 import Dom from './helper/Dom.js';
 import { typeList } from './Plate/mappleTypeList.js';
+const stylesss = require('./style.css');
 
 export default class ToolTip extends Component {
   constructor(props) {
@@ -21,6 +22,7 @@ export default class ToolTip extends Component {
   //     console.log(PlateDomNew.getDomInfo(), this.state.default);
   //   }
   // }
+  
   componentDidMount() {
     this.setState({
       mappleInfo: this.getPlateAndMappleInfo().mapple

@@ -87,7 +87,6 @@ export default class MappleTypeCSS {
     );
   }
   tipDom(tipSize, color) {
-    console.log(tipSize, color);
     const triangleTipStyle = this.getTipStyle(tipSize, color);
     return (
       <div className="tip" style={triangleTipStyle}>

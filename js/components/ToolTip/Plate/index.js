@@ -70,7 +70,7 @@ export default class Plate extends Component {
     });
     const style = this.mappleTypeCSS.getPlateStyle();
     return (
-      <div ref={'asd'} style={outerPlateStyle}>
+      <div className='mappleTip' ref={'asd'} style={outerPlateStyle}>
         <div style={style}>
           {this.props.content}
         </div>
