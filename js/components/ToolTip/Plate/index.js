@@ -60,7 +60,8 @@ export default class Plate extends Component {
       this.props.plateWidthHeight || {height: 0, width: 0},
       this.props.tipPosition,
       this.props.direction,
-      this.props.mappleType);
+      this.props.mappleType,
+      this.props.shadow);
     const outerPlateStyle = this.mappleTypeCSS.getOuterPlateStyle();
     Object.assign(outerPlateStyle, {
       top: pos.y,

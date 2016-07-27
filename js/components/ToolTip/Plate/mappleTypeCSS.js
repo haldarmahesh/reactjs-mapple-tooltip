@@ -1,7 +1,7 @@
 import React from 'react';
 import mappleList from './mappleTypeList.js';
 export default class MappleTypeCSS {
-  constructor(backgroundColor, textColor, borderRadius, plateWidthHeight, tipPosition, direction, mappleType) {
+  constructor(backgroundColor, textColor, borderRadius, plateWidthHeight, tipPosition, direction, mappleType, shadow) {
     this.backgroundColor = backgroundColor;
     this.textColor = textColor;
     this.borderRadius = borderRadius;
@@ -9,6 +9,7 @@ export default class MappleTypeCSS {
     this.tipPosition = tipPosition;
     this.direction = direction;
     this.mappleType = mappleType;
+    this.shadow = shadow;
     this.mappleTypeList = mappleList(backgroundColor, textColor);  
   }
   getPlateStyle() {
@@ -22,6 +23,7 @@ export default class MappleTypeCSS {
     return {
       position: 'fixed',
       zIndex: '10000',
+      boxShadow: this.shadow ? 'rgba(0, 0, 0, 0.45098) 0px 0px 12px' : null,
       backgroundColor: currentMapple.backgroundColor,
       border: currentMapple.border ? `1px solid ${currentMapple.textColor}` : null, 
       borderRadius: `${this.borderRadius}px`,

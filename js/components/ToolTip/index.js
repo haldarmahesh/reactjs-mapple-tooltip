@@ -52,6 +52,7 @@ export default class ToolTip extends Component {
           content={this.props.children[1]}
           borderRadius={this.state.borderRadius}
           tipPosition={this.state.tipPosition}
+          shadow={this.state.shadow}
           plateWidthHeight={this.state.plateWidthHeight}/>
           <div ref="contentForMapple">
             { this.props.children[0] }
@@ -80,6 +81,7 @@ export default class ToolTip extends Component {
       backgroundColor: props.backgroundColor || 'black',
       textColor: props.textColor || 'white',
       mappleType: this.mappleTypeList.includes(props.mappleType) ? props.mappleType : 'default',
+      shadow: props.shadow || false,
       changed: false
     };
   }
