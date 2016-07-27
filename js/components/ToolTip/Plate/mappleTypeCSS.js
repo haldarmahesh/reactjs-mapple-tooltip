@@ -12,16 +12,16 @@ export default class MappleTypeCSS {
   }
   getPlateStyle() {
     return {
-      backgroundColor: this.mappleTypeList[this.mappleType].backgroundColor,
       color: this.mappleTypeList[this.mappleType].textColor,
-      padding: '5px',
-      borderRadius: `${this.borderRadius}px`
+      padding: '5px'
     }
   }
   getOuterPlateStyle() {
     return {
       position: 'fixed',
       zIndex: '10000',
+      backgroundColor: this.mappleTypeList[this.mappleType].backgroundColor,
+      borderRadius: `${this.borderRadius}px`,
       WebkitTransition: 'opacity .25s ease-in-out',
       msTransition: 'opacity .25s ease-in-out'
     }
@@ -37,27 +37,27 @@ export default class MappleTypeCSS {
     const styleTop = {
       borderLeft: `${tipSize}px solid transparent`,
       borderRight: `${tipSize}px solid transparent`,
-      borderTop: `${tipSize}px solid ${this.getPlateStyle().backgroundColor}`,
+      borderTop: `${tipSize}px solid ${this.getOuterPlateStyle().backgroundColor}`,
       left: tipLocationHorizontal
     };
     const styleRight = {
       borderTop: `${tipSize}px solid transparent`,
       borderBottom: `${tipSize}px solid transparent`,
-      borderRight: `${tipSize}px solid ${this.getPlateStyle().backgroundColor}`,
+      borderRight: `${tipSize}px solid ${this.getOuterPlateStyle().backgroundColor}`,
       top: tipLocationVertical,
       left: '-5px'
     };
     const styleBottom = {
       borderLeft: `${tipSize}px solid transparent`,
       borderRight: `${tipSize}px solid transparent`,
-      borderBottom: `${tipSize}px solid ${this.getPlateStyle().backgroundColor}`,
+      borderBottom: `${tipSize}px solid ${this.getOuterPlateStyle().backgroundColor}`,
       top: `-${tipSize}px`,
       left: tipLocationHorizontal
     };
     const styleLeft = {
       borderTop: `${tipSize}px solid transparent`,
       borderBottom: `${tipSize}px solid transparent`,
-      borderLeft: `${tipSize}px solid ${this.getPlateStyle().backgroundColor}`,
+      borderLeft: `${tipSize}px solid ${this.getOuterPlateStyle().backgroundColor}`,
       top: tipLocationVertical, 
       right: `-${tipSize}px`
     }
