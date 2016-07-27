@@ -97,19 +97,26 @@ export default class ToolTip extends Component {
       plateWidthHeight: plateDimensions
     });
     let newPosition = this.state.float ? newPositionAroundCursor : newPositionAroundDom;
-    if (this.state.default && this.state.float) {
-      newPosition = {
-        x: -1000,
-        y: -1000
-      }
-    }
+    
+    let newDirection = this.checkCorners(newPosition, plateDomInfo);
     this.setTime = setTimeout(() => {
       this.setState({
       mouseIsOver: true,
       default: false,
-      pos: newPosition
+      pos: newPosition,
+      direction: newDirection
+    }, () => {
+      let newPositionAroundDomNew = this.state.float ? position.getPositionAroundCursor(fixedXY, this.state.direction, plateDom.getDomInfo(), contentForMapple) : position.getPositionAroundDom(this.state.direction, plateDomInfo, contentForMapple);
+      if (!this.state.default && this.state.float) {
+        newPositionAroundDomNew = {
+          x: -1000,
+          y: -1000
+        }
+      }
+      this.setState({
+        pos: newPositionAroundDomNew
+      })
     });
-    // this.checkIfPlateGoingOut();
     }, this.timeOut);
   }
 
@@ -129,10 +136,36 @@ export default class ToolTip extends Component {
     const plateDom = this.getPlateAndMappleInfo().plate;
     const contentForMapple = this.getPlateAndMappleInfo().mapple;
     let newPositionAroundCursor = position.getPositionAroundCursor(mousePosition, this.state.direction, plateDom, contentForMapple);
-    // this.checkIfPlateGoingOut();
+    let newDirection = this.checkCorners(newPositionAroundCursor, plateDom);
     this.setState({
-      pos: newPositionAroundCursor
+      pos: newPositionAroundCursor,
+      direction: newDirection
     });
+  }
+  checkCorners(newPositionAroundCursor, plateDom) {
+    let newDirection = this.state.direction;
+    if (this.state.float) {
+      if (newPositionAroundCursor.x < 0 && this.state.direction === this.props.direction) {
+        newDirection = 'right';
+      } else if (newPositionAroundCursor.x + plateDom.width > window.innerWidth && this.state.direction === this.props.direction) {
+        newDirection = 'left';
+      } else if (newPositionAroundCursor.y < 0 && this.state.direction === this.props.direction) {
+        newDirection = 'bottom';
+      } else if (newPositionAroundCursor.y + plateDom.height > window.innerHeight && this.state.direction === this.props.direction) {
+        newDirection = 'top'
+      } 
+    } else {
+      if (newPositionAroundCursor.x < 0 && this.state.direction === this.props.direction) {
+        newDirection = 'top';
+      } else if (newPositionAroundCursor.x + plateDom.width > window.innerWidth && this.state.direction === this.props.direction) {
+        newDirection = 'top';
+      } else if (newPositionAroundCursor.y < 0 && this.state.direction === this.props.direction) {
+        newDirection = 'bottom';
+      } else if (newPositionAroundCursor.y + plateDom.height > window.innerHeight && this.state.direction === this.props.direction) {
+        newDirection = 'top'
+      }
+    }
+    return newDirection;
   }
   reverseDirection(reverseOf) {
     if (this.props.direction === 'bottom' || this.props.direction === 'left' || this.props.direction === 'top' || this.props.direction === 'right') {
@@ -144,60 +177,6 @@ export default class ToolTip extends Component {
         return 'left';
       } else if (reverseOf === 'top') {
         return 'bottom';
-      }
-    }
-  }
-  checkIfPlateGoingOut() {
-    const plateDom = this.getPlateAndMappleInfo().plate;
-    const mapple = this.getPlateAndMappleInfo().mapple;
-    let newDirection = '';
-    if (!this.state.default) {
-      let newPosition = this.state.pos;
-      if (plateDom.left < 0 && !this.state.changed) {
-        newDirection = this.reverseDirection('left');
-        this.setState({
-          direction: newDirection,
-          changed: true
-        });
-      } else if(plateDom.top < 0 && !this.state.changed) {
-        newDirection = this.reverseDirection('top');
-        if (!this.state.float) {
-          newPosition = {
-            x: mapple.width - plateDom.width - 10,
-            y: mapple.height + 10
-          }  
-        }
-        this.setState({
-          direction: newDirection,
-          pos: newPosition,
-          changed: true
-        })
-      } else if (plateDom.right > window.innerWidth && !this.state.changed) {
-        newDirection = this.reverseDirection('right');
-        if (!this.state.float) {
-          newPosition = {
-            x: mapple.width - plateDom.width - 10,
-            y: this.state.pos.y
-          } 
-        }
-        this.setState({
-          direction: newDirection,
-          pos: newPosition,
-          changed: true
-        });
-      } else if (plateDom.bottom > window.innerHeight && !this.state.changed) {
-        newDirection = this.reverseDirection('bottom');
-        if (!this.state.float) {
-          newPosition = {
-            x: this.state.pos.x,
-            y: -plateDom.height - 10
-          }
-        }
-        this.setState({
-          direction: newDirection,
-          pos: newPosition,
-          changed: true
-        });
       }
     }
   }

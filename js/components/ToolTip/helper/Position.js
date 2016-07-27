@@ -33,14 +33,14 @@ export default class Position {
         distanceX = 0;
         distanceY = -this.gap;
         return {
-          x:  mapple.left + mapple.width/2 - plate.width/2 ,
+          x: mapple.width/2 - plate.width/2 ,
           y: mapple.top - plate.height + distanceY
         };
       case 'right':
         distanceX = this.gap + 5;
         distanceY = 0;
         return {
-          x:  mapple.right + distanceX,
+          x: mapple.right + distanceX,
           y: mapple.bottom - plate.height/2 - mapple.height / 2
         };
       case 'bottom':
