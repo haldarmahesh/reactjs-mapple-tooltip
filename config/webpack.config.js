@@ -1,6 +1,5 @@
 var path = require('path');
 var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var autoprefixer = require('autoprefixer');
 
 module.exports = {
@@ -11,7 +10,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, '../lib'),
     filename: 'index.js',
-    libraryTarget: 'commonjs2',
+    libraryTarget: 'commonjs2'
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
@@ -24,12 +23,12 @@ module.exports = {
       compressor: {
         warnings: false
       }
-    })
+    }),
   ],
   module: {
     loaders: [{
       test: /\.js$/,
-      loaders: ['react-hot', 'babel'],
+      loaders: ['babel'],
       include: path.join(__dirname, '../js')
     },
     {

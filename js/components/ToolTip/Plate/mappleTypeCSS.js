@@ -1,4 +1,3 @@
-import React from 'react';
 import mappleList from './mappleTypeList.js';
 export default class MappleTypeCSS {
   constructor(backgroundColor, textColor, borderRadius, plateWidthHeight, tipPosition, direction, mappleType, shadow) {
@@ -76,21 +75,5 @@ export default class MappleTypeCSS {
       Object.assign(triangleTipStyle, styleLeft);
     }
     return triangleTipStyle;
-  }
-  renderTip() {
-    const currentMapple =  this.mappleTypeList[this.mappleType];
-    return (
-      <span>
-        { currentMapple.border ? this.tipDom(6.5, currentMapple.textColor ) : null}
-        {this.tipDom(5, this.getOuterPlateStyle().backgroundColor)}
-      </span>
-    );
-  }
-  tipDom(tipSize, color) {
-    const triangleTipStyle = this.getTipStyle(tipSize, color);
-    return (
-      <div className="tip" style={triangleTipStyle}>
-      </div>
-    );
   }
 }

@@ -4,7 +4,7 @@ import Position from './helper/Position.js';
 import Dom from './helper/Dom.js';
 import { typeList } from './Plate/mappleTypeList.js';
 const stylesss = require('./style.css');
-
+let count = 0;
 export default class ToolTip extends Component {
   constructor(props) {
     super(props);
@@ -14,21 +14,13 @@ export default class ToolTip extends Component {
     this.timeOut = this.state.float ? 0 : 200;
     this.gap = 10;
     this.altered = false;
-    this.lastPlateDom = null;
-  }
-  // componentDidUpdate(nextProps) {
-  //   if (this.state.default) {
-  //     const PlateDomNew = new Dom(this.refs.plateComp);
-  //     console.log(PlateDomNew.getDomInfo(), this.state.default);
-  //   }
-  // }
-  
-  componentDidMount() {
-    this.setState({
-      mappleInfo: this.getPlateAndMappleInfo().mapple
-    })
+    this.plateInfo = {width: 0, height: 0};
+    count++;
   }
   
+  updatePlateWidth(dimension) {
+    this.plateInfo = dimension;
+  }
   render() {
     const { mouseIsOver } = this.state;
     const style = {
@@ -42,35 +34,28 @@ export default class ToolTip extends Component {
           onMouseLeave={::this.handleMouseLeave}
           onMouseMove={event => ::this.handleMouseMove(event)}>
           <Plate
+          currentId={count}
           visible={this.state.mouseIsOver}
-          ref={'plateComp'}
+          updatePlateWidth={::this.updatePlateWidth}
           backgroundColor={this.state.backgroundColor}
           textColor={this.state.textColor}
           default={this.state.default}
           mappleType={this.state.mappleType}
           pos={this.state.pos}
           direction={this.state.direction}
-          mapple={this.state.mappleInfo}
           content={this.props.children[1]}
           borderRadius={this.state.borderRadius}
           tipPosition={this.state.tipPosition}
           shadow={this.state.shadow}
           plateWidthHeight={this.state.plateWidthHeight}/>
-          <div ref="contentForMapple">
+          <div>
             { this.props.children[0] }
           </div>
         </span>
       </span>
     );
   }
-  getPlateAndMappleInfo() {
-    const plateDom = new Dom(this.refs.plateComp).getDomInfo();
-    const contentForMapple = new Dom(this.refs.contentForMapple).getDomInfo();
-    return {
-      plate: plateDom || {},
-      mapple: contentForMapple || {}
-    }
-  }
+
   setPropsValues(props) {
     return {
       mouseIsOver: false,
@@ -91,15 +76,10 @@ export default class ToolTip extends Component {
     const position = new Position();
     const fixedXY = position.getFixedCoordinates(event);
     const widthHeight = position.getWidthHeight(event);
-    const plateDom = new Dom(this.refs.plateComp);
-    const plateDimensions = plateDom.getDimensions();
-    const plateDomInfo = this.getPlateAndMappleInfo().plate;
-    const contentForMapple = this.getPlateAndMappleInfo().mapple;
+    const plateDomInfo = this.plateInfo;
+    const contentForMapple = event.currentTarget.getBoundingClientRect();
     const newPositionAroundDom = position.getPositionAroundDom(this.state.direction, plateDomInfo, contentForMapple);
-    const newPositionAroundCursor = position.getPositionAroundCursor(fixedXY, this.state.direction, plateDom.getDomInfo(), contentForMapple);
-    this.setState({
-      plateWidthHeight: plateDimensions
-    });
+    const newPositionAroundCursor = position.getPositionAroundCursor(fixedXY, this.state.direction, plateDomInfo, contentForMapple);
     let newPosition = this.state.float ? newPositionAroundCursor : newPositionAroundDom;
     
     let newDirection = this.checkCorners(newPosition, plateDomInfo);
@@ -110,7 +90,7 @@ export default class ToolTip extends Component {
       pos: newPosition,
       direction: newDirection
     }, () => {
-      let newPositionAroundDomNew = this.state.float ? position.getPositionAroundCursor(fixedXY, this.state.direction, plateDom.getDomInfo(), contentForMapple) : position.getPositionAroundDom(this.state.direction, plateDomInfo, contentForMapple);
+      let newPositionAroundDomNew = this.state.float ? position.getPositionAroundCursor(fixedXY, this.state.direction, plateDomInfo, contentForMapple) : position.getPositionAroundDom(this.state.direction, plateDomInfo, contentForMapple);
       if (!this.state.default && this.state.float) {
         newPositionAroundDomNew = {
           x: -1000,
@@ -118,7 +98,11 @@ export default class ToolTip extends Component {
         }
       }
       this.setState({
-        pos: newPositionAroundDomNew
+        pos: newPositionAroundDomNew,
+        plateWidthHeight: {
+        width: plateDomInfo.width,
+        height: plateDomInfo.height
+      }
       })
     });
     }, this.timeOut);
@@ -137,8 +121,8 @@ export default class ToolTip extends Component {
     }
     const position = new Position(event);
     const mousePosition = position.getFloatCoordinates(event);
-    const plateDom = this.getPlateAndMappleInfo().plate;
-    const contentForMapple = this.getPlateAndMappleInfo().mapple;
+    const plateDom = this.plateInfo;
+    const contentForMapple = event.currentTarget.getBoundingClientRect();
     let newPositionAroundCursor = position.getPositionAroundCursor(mousePosition, this.state.direction, plateDom, contentForMapple);
     let newDirection = this.checkCorners(newPositionAroundCursor, plateDom);
     this.setState({
@@ -148,31 +132,33 @@ export default class ToolTip extends Component {
   }
   checkCorners(newPositionAroundCursor, plateDom) {
     let newDirection = this.state.direction;
+    const defaultDirection = this.props.direction || 'top';
     if (this.state.float) {
-      if (newPositionAroundCursor.x < 0 && this.state.direction === this.props.direction) {
+      if (newPositionAroundCursor.x < 0 && this.state.direction === 'top') {
         newDirection = 'right';
-      } else if (newPositionAroundCursor.x + plateDom.width > window.innerWidth && this.state.direction === this.props.direction) {
+      } else if (newPositionAroundCursor.x + plateDom.width > window.innerWidth && this.state.direction === 'top') {
         newDirection = 'left';
-      } else if (newPositionAroundCursor.y < 0 && this.state.direction === this.props.direction) {
+      } else if (newPositionAroundCursor.y < 0 && this.state.direction === 'top') {
         newDirection = 'bottom';
-      } else if (newPositionAroundCursor.y + plateDom.height > window.innerHeight && this.state.direction === this.props.direction) {
+      } else if (newPositionAroundCursor.y + plateDom.height > window.innerHeight && this.state.direction === 'top') {
         newDirection = 'top'
       } 
     } else {
-      if (newPositionAroundCursor.x < 0 && this.state.direction === this.props.direction) {
+      if (newPositionAroundCursor.x < 0 && this.state.direction === 'top') {
         newDirection = 'top';
-      } else if (newPositionAroundCursor.x + plateDom.width > window.innerWidth && this.state.direction === this.props.direction) {
+      } else if (newPositionAroundCursor.x + plateDom.width > window.innerWidth && this.state.direction === 'top') {
         newDirection = 'top';
-      } else if (newPositionAroundCursor.y < 0 && this.state.direction === this.props.direction) {
+      } else if (newPositionAroundCursor.y < 0 && this.state.direction === 'top') {
         newDirection = 'bottom';
-      } else if (newPositionAroundCursor.y + plateDom.height > window.innerHeight && this.state.direction === this.props.direction) {
+      } else if (newPositionAroundCursor.y + plateDom.height > window.innerHeight && this.state.direction === 'top') {
         newDirection = 'top'
       }
     }
     return newDirection;
   }
   reverseDirection(reverseOf) {
-    if (this.props.direction === 'bottom' || this.props.direction === 'left' || this.props.direction === 'top' || this.props.direction === 'right') {
+    const defaultDirection = this.props.direction || 'top';
+    if (defaultDirection === 'bottom' || defaultDirection === 'left' || defaultDirection === 'top' || defaultDirection === 'right') {
       if (reverseOf === 'left') {
         return 'right';
       } else if (reverseOf === 'bottom') {
