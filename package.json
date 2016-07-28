@@ -1,6 +1,6 @@
 {
   "name": "reactjs-mappletooltip",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An easy to customize Tool tip react js component",
   "scripts": {
     "start": "node server.js",
