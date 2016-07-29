@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
+import Dom from '../helper/Dom';
 import MappleTypeCSS from './mappleTypeCSS';
-import mappleTypeList from './mappleTypeList';
-import ReactDom from 'react-dom';
-import ReactDomServer from 'react-dom/server';
-
 export default class Plate extends Component {
   constructor(props) {
     super(props);
@@ -13,16 +10,45 @@ export default class Plate extends Component {
       originalPos: true
     }
   }
+  // componentDidUpdate(props) {
+  //    if (!this.props.default) {
+
+      //  console.log(props.mapple, props.pos);
+        // console.log('trace',props.pos.y, props.mapple, plate);
+        // const plate = new Dom(this.refs.asd).getDomInfo();        
+        // if (plate.left < -15) {
+        //   this.setState({
+        //     pos: {
+        //       x:  0,
+        //       y: props.pos.y
+        //     }
+        //   });
+        // } else if (plate.right > window.innerWidth) {
+        //   this.setState({
+        //     pos: {
+        //       x: props.mapple.width - plate.width - 10,
+        //       y: props.pos.y
+        //     }
+        //   })
+        // } 
+        // else if (plate.top < -10) {
+        //   console.log('matter', props.pos.x, props.pos.y);
+        //   this.setState({
+        //     pos: {
+        //       x: 20,
+        //       y: 24
+        //     },
+        //     direction: 'bottom'
+        //   })
+        // }
+  //   }
+  // }
   componentWillReceiveProps(nextProps) {
     this.setState({
       pos: nextProps.pos,
       direction: nextProps.direction
     });
   }
-  componentDidMount(state) {
-    this.props.updatePlateWidth(document.getElementById('mapple_'+this.props.currentId).getBoundingClientRect());
-  }
-  
   
   
   render() {
@@ -44,28 +70,12 @@ export default class Plate extends Component {
     });
     const style = this.mappleTypeCSS.getPlateStyle();
     return (
-      <div id={`mapple_${this.props.currentId}`} className='mappleTip' style={outerPlateStyle}>
+      <div className='mappleTip' ref={'asd'} style={outerPlateStyle}>
         <div style={style}>
           {this.props.content}
         </div>
-        { this.renderTip() }
+        { this.mappleTypeCSS.renderTip() }
     </div>
-    );
-  }
-  renderTip() {
-    const currentMapple =  mappleTypeList()[this.props.mappleType];
-    return (
-      <span>
-        { currentMapple.border ? this.tipDom(6.5, currentMapple.textColor ) : null}
-        {this.tipDom(5, this.mappleTypeCSS.getOuterPlateStyle().backgroundColor)}
-      </span>
-    );
-  }
-  tipDom(tipSize, color) {
-    const triangleTipStyle = this.mappleTypeCSS.getTipStyle(tipSize, color);
-    return (
-      <div className="tip" style={triangleTipStyle}>
-      </div>
     );
   }
 }

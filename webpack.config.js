@@ -25,19 +25,12 @@ module.exports = {
     {
       test: /\.js$/,
       loaders: ['react-hot', 'babel'],
-      include: path.join(__dirname, '../js')
+      include: path.join(__dirname, 'js')
     },
     {
       test: /\.css$/,
       exclude: [/node_module/],
       loaders: ['style-loader', 'css-loader?sourceMap']
-    }],
-  },
-  resolve: {
-      alias: {
-        'mappletooltip': path.join(__dirname, '../','js'),
-        'react': path.resolve(path.join(__dirname, 'node_modules', 'react'))
-      },
-      extensions: ['', '.js', '.json']
-    }
+    }]
+  }
 };
