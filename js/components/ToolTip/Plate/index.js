@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import MappleTypeCSS from './mappleTypeCSS';
 import mappleTypeList from './mappleTypeList';
+import { directions } from '../helper/constants';
 
 export default class Plate extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      pos: { x: -1000, y: -1000 },
-      direction: 'top',
+      pos: { posX: -1000, posY: -1000 },
+      direction: directions.TOP,
       originalPos: true
     };
   }
@@ -35,8 +36,8 @@ export default class Plate extends Component {
       this.props.shadow);
     const outerPlateStyle = this.mappleTypeCSS.getOuterPlateStyle();
     Object.assign(outerPlateStyle, {
-      top: pos.y,
-      left: pos.x,
+      top: pos.posY,
+      left: pos.posX,
       opacity
     });
     const style = this.mappleTypeCSS.getPlateStyle();

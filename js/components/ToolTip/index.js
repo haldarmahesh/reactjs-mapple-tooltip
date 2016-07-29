@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Plate from './Plate';
 import Position from './helper/Position.js';
 import { typeList } from './Plate/mappleTypeList.js';
+import MapplePosition from './MapplePosition';
+import { directions } from './helper/constants';
 let count = 0;
 export default class ToolTip extends Component {
   constructor(props) {
@@ -16,9 +18,6 @@ export default class ToolTip extends Component {
     count++;
   }
 
-  updatePlateWidth(dimension) {
-    this.plateInfo = dimension;
-  }
   render() {
     const style = {
       display: 'table',
@@ -55,13 +54,17 @@ export default class ToolTip extends Component {
       </span>);
   }
 
+  updatePlateWidth(dimension) {
+    this.plateInfo = dimension;
+  }
+
   setPropsValues(props) {
     return {
       mouseIsOver: false,
-      pos: { x: -1000, y: -1000 },
+      pos: { posX: -1000, posY: -1000 },
       default: true,
       float: props.float || false,
-      direction: props.direction || 'top',
+      direction: props.direction || directions.TOP,
       borderRadius: props.borderRadius || '3',
       tipPosition: props.tipPosition >= 0 && props.tipPosition <= 100 ? props.tipPosition : 50,
       backgroundColor: props.backgroundColor || 'black',
@@ -72,15 +75,21 @@ export default class ToolTip extends Component {
     };
   }
   handleMouseEnter(event) {
+    const { direction } = this.props;
+    const { float } = this.state;
     const position = new Position();
     const fixedXY = position.getFixedCoordinates(event);
     const plateDomInfo = this.plateInfo;
     const contentForMapple = event.currentTarget.getBoundingClientRect();
-    const newPositionAroundDom = position.getPositionAroundDom(this.state.direction, plateDomInfo, contentForMapple);
-    const newPositionAroundCursor = position.getPositionAroundCursor(fixedXY, this.state.direction, plateDomInfo, contentForMapple);
+    const curDirection = this.state.direction;
+    const newPositionAroundDom = position.getPositionAroundDom(
+      this.state.direction, plateDomInfo, contentForMapple);
+    const newPositionAroundCursor = position.getPositionAroundCursor(
+      fixedXY, this.state.direction, plateDomInfo, contentForMapple);
     const newPosition = this.state.float ? newPositionAroundCursor : newPositionAroundDom;
-
-    const newDirection = this.checkCorners(newPosition, plateDomInfo);
+    const mapplePositionObj = new MapplePosition(
+          newPosition, plateDomInfo, curDirection, direction, float);
+    const newDirection = mapplePositionObj.checkCorners();
     this.setTime = setTimeout(() => {
       this.setState({
         mouseIsOver: true,
@@ -88,11 +97,14 @@ export default class ToolTip extends Component {
         pos: newPosition,
         direction: newDirection
       }, () => {
-        let newPositionAroundDomNew = this.state.float ? position.getPositionAroundCursor(fixedXY, this.state.direction, plateDomInfo, contentForMapple) : position.getPositionAroundDom(this.state.direction, plateDomInfo, contentForMapple);
+        let newPositionAroundDomNew = this.state.float
+          ? position.getPositionAroundCursor(
+              fixedXY, this.state.direction, plateDomInfo, contentForMapple)
+          : position.getPositionAroundDom(this.state.direction, plateDomInfo, contentForMapple);
         if (!this.state.default && this.state.float) {
           newPositionAroundDomNew = {
-            x: -1000,
-            y: -1000
+            posX: -1000,
+            posY: -1000
           };
         }
         this.setState({
@@ -114,58 +126,40 @@ export default class ToolTip extends Component {
   }
 
   handleMouseMove(event) {
-    if (!this.state.float) {
+    const { float } = this.state;
+    if (!float) {
       return;
     }
+    const { direction } = this.props;
     const position = new Position(event);
     const mousePosition = position.getFloatCoordinates(event);
     const plateDom = this.plateInfo;
     const contentForMapple = event.currentTarget.getBoundingClientRect();
-    const newPositionAroundCursor = position.getPositionAroundCursor(mousePosition, this.state.direction, plateDom, contentForMapple);
-    const newDirection = this.checkCorners(newPositionAroundCursor, plateDom);
+    const curDirection = this.state.direction;
+    const newPositionAroundCursor = position.getPositionAroundCursor(
+      mousePosition, curDirection, plateDom, contentForMapple
+      );
+    const mapplePositionObj = new MapplePosition(
+      newPositionAroundCursor, plateDom, curDirection, direction, float
+      );
+    const newDirection = mapplePositionObj.checkCorners();
     this.setState({
       pos: newPositionAroundCursor,
       direction: newDirection
     });
   }
-  checkCorners(newPositionAroundCursor, plateDom) {
-    let newDirection = this.state.direction;
-    const defaultDirection = this.props.direction || 'top';
-    if (this.state.float) {
-      if (newPositionAroundCursor.x < 0 && this.state.direction === defaultDirection) {
-        newDirection = 'right';
-      } else if (newPositionAroundCursor.x + plateDom.width > window.innerWidth && this.state.direction === defaultDirection) {
-        newDirection = 'left';
-      } else if (newPositionAroundCursor.y < 0 && this.state.direction === defaultDirection) {
-        newDirection = 'bottom';
-      } else if (newPositionAroundCursor.y + plateDom.height > window.innerHeight && this.state.direction === defaultDirection) {
-        newDirection = 'top';
-      }
-    } else {
-      if (newPositionAroundCursor.x < 0 && this.state.direction === defaultDirection) {
-        newDirection = 'top';
-      } else if (newPositionAroundCursor.x + plateDom.width > window.innerWidth && this.state.direction === defaultDirection) {
-        newDirection = 'top';
-      } else if (newPositionAroundCursor.y < 0 && this.state.direction === defaultDirection) {
-        newDirection = 'bottom';
-      } else if (newPositionAroundCursor.y + plateDom.height > window.innerHeight && this.state.direction === defaultDirection) {
-        newDirection = 'top';
-      }
-    }
-    return newDirection;
-  }
   reverseDirection(reverseOf) {
-    const defaultDirection = this.props.direction || 'top';
+    const defaultDirection = this.props.direction || directions.TOP;
     let newDirection = defaultDirection;
-    if (defaultDirection === 'bottom' || defaultDirection === 'left' || defaultDirection === 'top' || defaultDirection === 'right') {
-      if (reverseOf === 'left') {
-        newDirection = 'right';
-      } else if (reverseOf === 'bottom') {
-        newDirection = 'top';
-      } else if (reverseOf === 'right') {
-        newDirection = 'left';
-      } else if (reverseOf === 'top') {
-        newDirection = 'bottom';
+    if (defaultDirection === directions.BOTTOM || defaultDirection === directions.LEFT || defaultDirection === directions.TOP || defaultDirection === directions.RIGHT) {
+      if (reverseOf === directions.LEFT) {
+        newDirection = directions.RIGHT;
+      } else if (reverseOf === directions.BOTTOM) {
+        newDirection = directions.TOP;
+      } else if (reverseOf === directions.RIGHT) {
+        newDirection = directions.LEFT;
+      } else if (reverseOf === directions.TOP) {
+        newDirection = directions.BOTTOM;
       }
     }
     return newDirection;

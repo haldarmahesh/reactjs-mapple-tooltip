@@ -1,3 +1,4 @@
+import { directions } from '../helper/constants';
 export default class Position {
   constructor() {
     this.gap = 10;
@@ -5,8 +6,8 @@ export default class Position {
   getFixedCoordinates(event) {
     const target = event.currentTarget.getBoundingClientRect();
     return {
-      x: target.width / 2 + Math.abs(target.left),
-      y: target.top
+      posX: target.width / 2 + Math.abs(target.left),
+      posY: target.top
     };
   }
   getWidthHeight(event) {
@@ -19,90 +20,86 @@ export default class Position {
 
   getFloatCoordinates(event) {
     return {
-      x: event.clientX,
-      y: event.clientY
-    }
+      posX: event.clientX,
+      posY: event.clientY
+    };
   }
   getPositionAroundDom(direction, plate, mapple) {
     let distanceX = 0;
     let distanceY = 0;
-    let x = 0;
-    let y = 0;
     switch (direction) {
-      case 'top':
-        distanceX = 0;
-        distanceY = -this.gap;
-        return {
-          x: mapple.width/2 - plate.width/2 ,
-          y: mapple.top - plate.height + distanceY
-        };
-      case 'right':
-        distanceX = this.gap + 5;
-        distanceY = 0;
-        return {
-          x: mapple.right + distanceX,
-          y: mapple.bottom - plate.height/2 - mapple.height / 2
-        };
-      case 'bottom':
-        distanceX = 0;
-        distanceY = this.gap;
-        return {
-          x:  mapple.left + mapple.width / 2 - plate.width/2 + distanceX,
-          y: mapple.bottom + distanceY
-        };
-      case 'left':
-        distanceX = -this.gap;
-        distanceY = 0;
-        return {
-          x:  mapple.left - plate.width + distanceX,
-          y: mapple.top + mapple.height / 2 - plate.height / 2
-        };   
-      default:
-        return {
-          x: -1000,
-          y: -1000
-        };
+    case directions.TOP:
+      distanceX = 0;
+      distanceY = -this.gap;
+      return {
+        posX: mapple.width / 2 - plate.width / 2,
+        posY: mapple.top - plate.height + distanceY
+      };
+    case directions.RIGHT:
+      distanceX = this.gap + 5;
+      distanceY = 0;
+      return {
+        posX: mapple.right + distanceX,
+        posY: mapple.bottom - plate.height / 2 - mapple.height / 2
+      };
+    case directions.BOTTOM:
+      distanceX = 0;
+      distanceY = this.gap;
+      return {
+        posX: mapple.left + mapple.width / 2 - plate.width / 2 + distanceX,
+        posY: mapple.bottom + distanceY
+      };
+    case directions.LEFT:
+      distanceX = -this.gap;
+      distanceY = 0;
+      return {
+        posX: mapple.left - plate.width + distanceX,
+        posY: mapple.top + mapple.height / 2 - plate.height / 2
+      };
+    default:
+      return {
+        posX: -1000,
+        posY: -1000
+      };
     }
   }
   getPositionAroundCursor(referenceXY, direction, plate, mapple) {
     let distanceX = 0;
     let distanceY = 0;
-    let x = 0;
-    let y = 0;
     switch (direction) {
-      case 'top':
-        distanceX = 0;
-        distanceY = -this.gap;
-        return {
-          x: referenceXY.x - plate.width / 2,
-          y: referenceXY.y - plate.height + distanceY
-        };
-      case 'right':
-        distanceX = this.gap + 5;
-        distanceY = 0;
-        return {
-          x: referenceXY.x + distanceX,
-          y: referenceXY.y - plate.height/2
-        };
-      case 'bottom':
-        distanceX = 0;
-        distanceY = this.gap + 10;
-        return {
-          x: referenceXY.x - plate.width/2 + distanceX,
-          y: referenceXY.y + distanceY
-        };
-      case 'left':
-        distanceX = -this.gap;
-        distanceY = 0;
-        return {
-          x: referenceXY.x - plate.width + distanceX,
-          y: referenceXY.y - plate.height/2
-        };   
-      default:
-        return {
-          x: -1000,
-          y: -1000
-        };
+    case directions.TOP:
+      distanceX = 0;
+      distanceY = -this.gap;
+      return {
+        posX: referenceXY.posX - plate.width / 2,
+        posY: referenceXY.posY - plate.height + distanceY
+      };
+    case directions.RIGHT:
+      distanceX = this.gap + 5;
+      distanceY = 0;
+      return {
+        posX: referenceXY.posX + distanceX,
+        posY: referenceXY.posY - plate.height / 2
+      };
+    case directions.BOTTOM:
+      distanceX = 0;
+      distanceY = this.gap + 10;
+      return {
+        posX: referenceXY.posX - plate.width / 2 + distanceX,
+        posY: referenceXY.posY + distanceY
+      };
+    case directions.LEFT:
+      distanceX = -this.gap;
+      distanceY = 0;
+      return {
+        posX: referenceXY.posX - plate.width + distanceX,
+        posY: referenceXY.posY - plate.height / 2
+      };
+    default:
+      return {
+        posX: -1000,
+        posY: -1000
+      };
     }
   }
 }

@@ -1,4 +1,4 @@
-export default function List(backgroundColor, textColor) {
+export default function list(backgroundColor, textColor) {
   return {
     default: {
       backgroundColor,
@@ -28,5 +28,5 @@ export default function List(backgroundColor, textColor) {
 }
 
 export function typeList() {
-  return Object.keys(List());
+  return Object.keys(list());
 }

@@ -1,3 +1,4 @@
+import { directions } from '../helper/constants';
 import mappleList from './mappleTypeList.js';
 export default class MappleTypeCSS {
   constructor(backgroundColor, textColor, borderRadius, plateWidthHeight, tipPosition, direction, mappleType, shadow) {
@@ -65,13 +66,13 @@ export default class MappleTypeCSS {
       top: tipLocationVertical,
       right: `-${tipSize}px`
     };
-    if (this.direction === 'top') {
+    if (this.direction === directions.TOP) {
       Object.assign(triangleTipStyle, styleTop);
-    } else if (this.direction === 'right') {
+    } else if (this.direction === directions.RIGHT) {
       Object.assign(triangleTipStyle, styleRight);
-    } else if (this.direction === 'bottom') {
+    } else if (this.direction === directions.BOTTOM) {
       Object.assign(triangleTipStyle, styleBottom);
-    } else if (this.direction === 'left') {
+    } else if (this.direction === directions.LEFT) {
       Object.assign(triangleTipStyle, styleLeft);
     }
     return triangleTipStyle;
