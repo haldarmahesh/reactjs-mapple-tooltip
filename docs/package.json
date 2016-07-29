@@ -1,12 +1,13 @@
 {
   "name": "reactjs-mappletooltip",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "An easy to customize Tool tip react js component",
   "scripts": {
     "clean": "rimraf lib",
     "lint": "eslint src",
-    "build:webpack": "NODE_ENV=production webpack --config config/webpack.config.js",
-    "build": "npm run clean && npm run build:webpack"
+    "build:webpack": "webpack --config webpack.config.js",
+    "build": "npm run clean && npm run build:webpack",
+    "start": "npm run clean && node server.js"
   },
   "repository": {
     "type": "git",
@@ -36,13 +37,13 @@
     "eslint-plugin-react": "^3.6.2",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
+    "react-hot-loader": "^1.3.0",
     "rimraf": "^2.5.4",
     "style-loader": "^0.13.1",
     "webpack": "^1.12.2",
     "webpack-dev-server": "^1.12.1"
   },
-  "peerDependencies": {
-    "react": "^15.0.1",
-    "react-dom": "^15.0.1"
+  "dependencies": {
+    "extract-text-webpack-plugin": "^1.0.1"
   }
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ToolTip } from '../js';
+import { ToolTip } from 'mappletooltip';
 
 export default class App extends Component {
   render() {
