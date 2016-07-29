@@ -148,20 +148,4 @@ export default class ToolTip extends Component {
       direction: newDirection
     });
   }
-  reverseDirection(reverseOf) {
-    const defaultDirection = this.props.direction || directions.TOP;
-    let newDirection = defaultDirection;
-    if (defaultDirection === directions.BOTTOM || defaultDirection === directions.LEFT || defaultDirection === directions.TOP || defaultDirection === directions.RIGHT) {
-      if (reverseOf === directions.LEFT) {
-        newDirection = directions.RIGHT;
-      } else if (reverseOf === directions.BOTTOM) {
-        newDirection = directions.TOP;
-      } else if (reverseOf === directions.RIGHT) {
-        newDirection = directions.LEFT;
-      } else if (reverseOf === directions.TOP) {
-        newDirection = directions.BOTTOM;
-      }
-    }
-    return newDirection;
-  }
 }
