@@ -3,7 +3,7 @@ import { ToolTip } from 'mappletooltip';
 
 export default class App extends Component {
   render() {
-    const style={
+    const style = {
       backgroundColor: 'red',
       width: '500px',
       padding: '10px'
@@ -11,12 +11,12 @@ export default class App extends Component {
     const toolTipConfig = {
       direction: 'bottom',
       float: true
-    } 
+    };
     return (
       <div>
         <h1>Hello, world.</h1>
         <ToolTip {...toolTipConfig}>
-          <div className='tipDiv' style={style}>
+          <div className="tipDiv" style={style}>
             Hello wassup
           </div>
           <div>
