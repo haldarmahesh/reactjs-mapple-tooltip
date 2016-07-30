@@ -11,6 +11,7 @@ export default class MappleTypeCSS {
     this.mappleType = mappleType;
     this.shadow = shadow;
     this.mappleTypeList = mappleList(backgroundColor, textColor);
+    this.currentMapple = this.mappleTypeList[this.mappleType];
   }
   getPlateStyle() {
     return {
@@ -19,13 +20,12 @@ export default class MappleTypeCSS {
     };
   }
   getOuterPlateStyle() {
-    const currentMapple = this.mappleTypeList[this.mappleType];
     return {
       position: 'fixed',
       zIndex: '10000',
       boxShadow: this.shadow ? 'rgba(0, 0, 0, 0.45098) 0px 0px 12px' : null,
-      backgroundColor: currentMapple.backgroundColor,
-      border: currentMapple.border ? `1px solid ${currentMapple.textColor}` : null,
+      backgroundColor: this.currentMapple.backgroundColor,
+      border: this.currentMapple.border ? `1px solid ${this.currentMapple.borderColor || this.currentMapple.textColor}` : null,
       borderRadius: `${this.borderRadius}px`,
       WebkitTransition: 'opacity .25s ease-in-out',
       msTransition: 'opacity .25s ease-in-out'

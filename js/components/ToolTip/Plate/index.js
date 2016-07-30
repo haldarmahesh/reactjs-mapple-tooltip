@@ -54,7 +54,7 @@ export default class Plate extends Component {
     const currentMapple = mappleTypeList()[this.props.mappleType];
     return (
       <span>
-        {currentMapple.border ? this.tipDom(6.5, currentMapple.textColor) : null}
+        {currentMapple.border ? this.tipDom(6.5, currentMapple.borderColor || currentMapple.textColor) : null}
         {this.tipDom(5, this.mappleTypeCSS.getOuterPlateStyle().backgroundColor)}
       </span>
     );

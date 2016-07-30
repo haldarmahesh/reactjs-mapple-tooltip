@@ -70,7 +70,7 @@ export default class ToolTip extends Component {
       backgroundColor: typeof(props.backgroundColor) === 'string' ? props.backgroundColor : 'black',
       textColor: typeof(props.textColor) === 'string' ? props.textColor : 'white',
       mappleType: typeof(props.mappleType) === 'string' ? this.polishMappleType(props.mappleType) : 'default',
-      shadow: props.shadow || false
+      shadow: typeof(props.shadow) === 'boolean' ? props.shadow : false
     };
   }
   polishTipPosition(tipPosition) {
