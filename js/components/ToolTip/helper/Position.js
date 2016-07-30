@@ -32,7 +32,7 @@ export default class Position {
       distanceX = 0;
       distanceY = -this.gap;
       return {
-        posX: mapple.width / 2 - plate.width / 2,
+        posX: mapple.left + mapple.width / 2 - plate.width / 2,
         posY: mapple.top - plate.height + distanceY
       };
     case directions.RIGHT:

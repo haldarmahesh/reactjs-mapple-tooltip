@@ -1,4 +1,2 @@
 import ToolTip from './components/ToolTip';
-module.exports = {
-  ToolTip
-};
+export default ToolTip;
