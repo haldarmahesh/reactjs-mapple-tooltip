@@ -1,6 +1,6 @@
-var path = require('path');
-var webpack = require('webpack');
-var autoprefixer = require('autoprefixer');
+const path = require('path');
+const webpack = require('webpack');
+// const autoprefixer = require('autoprefixer');
 
 module.exports = {
   devtool: 'source-map',
@@ -23,7 +23,7 @@ module.exports = {
       compressor: {
         warnings: false
       }
-    }),
+    })
   ],
   module: {
     loaders: [{
@@ -33,7 +33,7 @@ module.exports = {
     },
     {
       test: /\.css$/,
-      loaders: ['style-loader', 'css-loader?sourceMap'],
+      loaders: ['style-loader', 'css-loader?sourceMap']
     }]
   }
 };

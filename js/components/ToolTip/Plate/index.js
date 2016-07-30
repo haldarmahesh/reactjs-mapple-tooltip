@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import MappleTypeCSS from './mappleTypeCSS';
 import mappleTypeList from './mappleTypeList';
 import { directions } from '../helper/constants';
@@ -29,7 +29,7 @@ export default class Plate extends Component {
     this.mappleTypeCSS = new MappleTypeCSS(this.props.backgroundColor,
       this.props.textColor,
       this.props.borderRadius,
-      this.props.plateWidthHeight || { height: 0, width: 0 },
+      this.props.plateWidthHeight,
       this.props.tipPosition,
       this.props.direction,
       this.props.mappleType,
@@ -67,3 +67,20 @@ export default class Plate extends Component {
     );
   }
 }
+
+Plate.propTypes = {
+  currentId: PropTypes.number.isRequired,
+  visible: PropTypes.bool.isRequired,
+  updatePlateWidth: PropTypes.func.isRequired,
+  backgroundColor: PropTypes.string.isRequired,
+  textColor: PropTypes.string.isRequired,
+  default: PropTypes.bool.isRequired,
+  mappleType: PropTypes.string.isRequired,
+  pos: PropTypes.object.isRequired,
+  direction: PropTypes.string.isRequired,
+  content: PropTypes.any.isRequired,
+  borderRadius: PropTypes.number.isRequired,
+  tipPosition: PropTypes.number.isRequired,
+  shadow: PropTypes.bool.isRequired,
+  plateWidthHeight: PropTypes.object.isRequired
+};
