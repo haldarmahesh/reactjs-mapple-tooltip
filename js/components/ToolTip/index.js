@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import Plate from './Plate';
 import Position from './helper/Position.js';
 import { typeList } from './Plate/mappleTypeList.js';
@@ -45,7 +45,7 @@ export default class ToolTip extends Component {
           borderRadius={this.state.borderRadius}
           tipPosition={this.state.tipPosition}
           shadow={this.state.shadow}
-          plateWidthHeight={this.state.plateWidthHeight}
+          plateWidthHeight={this.state.plateWidthHeight || { height: 0, width: 0 }}
           />
           <div>
             {this.props.children[0]}
@@ -63,16 +63,25 @@ export default class ToolTip extends Component {
       mouseIsOver: false,
       pos: { posX: -1000, posY: -1000 },
       default: true,
-      float: props.float || false,
-      direction: props.direction || directions.TOP,
-      borderRadius: props.borderRadius || '3',
-      tipPosition: props.tipPosition >= 0 && props.tipPosition <= 100 ? props.tipPosition : 50,
-      backgroundColor: props.backgroundColor || 'black',
-      textColor: props.textColor || 'white',
-      mappleType: this.mappleTypeList.includes(props.mappleType) ? props.mappleType : 'default',
-      shadow: props.shadow || false,
-      changed: false
+      float: typeof(props.float) === 'boolean' ? props.float : false,
+      direction: typeof(props.direction) === 'string' ? props.direction : directions.TOP,
+      borderRadius: typeof(props.borderRadius) === 'number' ? props.borderRadius : 3,
+      tipPosition: this.polishTipPosition(props.tipPosition),
+      backgroundColor: typeof(props.backgroundColor) === 'string' ? props.backgroundColor : 'black',
+      textColor: typeof(props.textColor) === 'string' ? props.textColor : 'white',
+      mappleType: typeof(props.mappleType) === 'string' ? this.polishMappleType(props.mappleType) : 'default',
+      shadow: props.shadow || false
     };
+  }
+  polishTipPosition(tipPosition) {
+    let newTipPosition = 50;
+    if (typeof(tipPosition) === 'number') {
+      newTipPosition = tipPosition >= 0 && tipPosition <= 100 ? tipPosition : 50;
+    }
+    return newTipPosition;
+  }
+  polishMappleType(mappleType) {
+    return this.mappleTypeList.includes(mappleType) ? mappleType : 'default';
   }
   handleMouseEnter(event) {
     const { direction } = this.props;
@@ -149,3 +158,15 @@ export default class ToolTip extends Component {
     });
   }
 }
+
+ToolTip.propTypes = {
+  direction: PropTypes.string,
+  float: PropTypes.bool,
+  borderRadius: PropTypes.number,
+  tipPosition: PropTypes.number,
+  backgroundColor: PropTypes.string,
+  textColor: PropTypes.string,
+  mappleType: PropTypes.string,
+  shadow: PropTypes.bool
+};
+
