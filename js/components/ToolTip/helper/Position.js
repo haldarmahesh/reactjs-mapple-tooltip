@@ -1,7 +1,8 @@
 import { directions } from '../helper/constants';
 export default class Position {
   constructor() {
-    this.gap = 10;
+    this.floatGap = 10;
+    this.solidGap = 5;
   }
   getFixedCoordinates(event) {
     const target = event.currentTarget.getBoundingClientRect();
@@ -30,13 +31,13 @@ export default class Position {
     switch (direction) {
     case directions.TOP:
       distanceX = 0;
-      distanceY = -this.gap;
+      distanceY = -this.solidGap;
       return {
         posX: mapple.left + mapple.width / 2 - plate.width / 2,
         posY: mapple.top - plate.height + distanceY
       };
     case directions.RIGHT:
-      distanceX = this.gap + 5;
+      distanceX = this.solidGap;
       distanceY = 0;
       return {
         posX: mapple.right + distanceX,
@@ -44,13 +45,13 @@ export default class Position {
       };
     case directions.BOTTOM:
       distanceX = 0;
-      distanceY = this.gap;
+      distanceY = this.solidGap;
       return {
         posX: mapple.left + mapple.width / 2 - plate.width / 2 + distanceX,
         posY: mapple.bottom + distanceY
       };
     case directions.LEFT:
-      distanceX = -this.gap;
+      distanceX = -this.solidGap;
       distanceY = 0;
       return {
         posX: mapple.left - plate.width + distanceX,
@@ -69,13 +70,13 @@ export default class Position {
     switch (direction) {
     case directions.TOP:
       distanceX = 0;
-      distanceY = -this.gap;
+      distanceY = -this.floatGap;
       return {
         posX: referenceXY.posX - plate.width / 2,
         posY: referenceXY.posY - plate.height + distanceY
       };
     case directions.RIGHT:
-      distanceX = this.gap + 5;
+      distanceX = this.floatGap + 5;
       distanceY = 0;
       return {
         posX: referenceXY.posX + distanceX,
@@ -83,13 +84,13 @@ export default class Position {
       };
     case directions.BOTTOM:
       distanceX = 0;
-      distanceY = this.gap + 10;
+      distanceY = this.floatGap + 10;
       return {
         posX: referenceXY.posX - plate.width / 2 + distanceX,
         posY: referenceXY.posY + distanceY
       };
     case directions.LEFT:
-      distanceX = -this.gap;
+      distanceX = -this.floatGap;
       distanceY = 0;
       return {
         posX: referenceXY.posX - plate.width + distanceX,

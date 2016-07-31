@@ -16,7 +16,7 @@ export default class MappleTypeCSS {
   getPlateStyle() {
     return {
       color: this.mappleTypeList[this.mappleType].textColor,
-      padding: '5px'
+      padding: '8px 12px'
     };
   }
   getOuterPlateStyle() {
