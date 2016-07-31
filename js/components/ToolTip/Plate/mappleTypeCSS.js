@@ -2,16 +2,16 @@ import { directions } from '../helper/constants';
 import mappleList from './mappleTypeList.js';
 export default class MappleTypeCSS {
   constructor(backgroundColor, textColor, borderRadius, plateWidthHeight, tipPosition, direction, mappleType, shadow) {
+    this.mappleTypeList = mappleList(backgroundColor, textColor);
+    this.mappleType = mappleType;
+    this.currentMapple = this.mappleTypeList[this.mappleType];
     this.backgroundColor = backgroundColor;
     this.textColor = textColor;
-    this.borderRadius = borderRadius;
+    this.borderRadius = this.currentMapple.borderRadius === undefined ? borderRadius : this.currentMapple.borderRadius;
     this.plateWidthHeight = plateWidthHeight;
     this.tipPosition = tipPosition;
     this.direction = direction;
-    this.mappleType = mappleType;
     this.shadow = shadow;
-    this.mappleTypeList = mappleList(backgroundColor, textColor);
-    this.currentMapple = this.mappleTypeList[this.mappleType];
   }
   getPlateStyle() {
     return {

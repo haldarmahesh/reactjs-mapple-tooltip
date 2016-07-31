@@ -2,7 +2,7 @@ import { directions } from '../helper/constants';
 export default class Position {
   constructor() {
     this.floatGap = 10;
-    this.solidGap = 5;
+    this.solidGap = 6;
   }
   getFixedCoordinates(event) {
     const target = event.currentTarget.getBoundingClientRect();

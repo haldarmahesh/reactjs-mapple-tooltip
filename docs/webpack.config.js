@@ -36,7 +36,8 @@ module.exports = {
   resolve: {
       alias: {
         'mappletooltip': path.join(__dirname, '../','js'),
-        'react': path.resolve(path.join(__dirname, 'node_modules', 'react'))
+        'react': path.resolve(path.join(__dirname, 'node_modules', 'react')),
+        'mappleTypeList': path.resolve(path.join(__dirname, '../js/components/ToolTip/Plate/mappleTypeList.js'))
       },
       extensions: ['', '.js', '.json']
     }

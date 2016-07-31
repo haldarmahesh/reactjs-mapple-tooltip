@@ -23,14 +23,13 @@ export default class ToolTip extends Component {
       display: 'table',
       position: 'relative'
     };
+    Object.assign(style, this.props.style);
     return (
-      <span style={this.props.style}>
         <span
           style={style}
           onMouseEnter={event => ::this.handleMouseEnter(event)}
           onMouseLeave={::this.handleMouseLeave}
-          onMouseMove={event => ::this.handleMouseMove(event)}
-        >
+          onMouseMove={event => ::this.handleMouseMove(event)}>
           <Plate
           currentId={count}
           visible={this.state.mouseIsOver}
@@ -50,8 +49,7 @@ export default class ToolTip extends Component {
           <div>
             {this.props.children[0]}
           </div>
-        </span>
-      </span>);
+        </span>);
   }
 
   updatePlateWidth(dimension) {
