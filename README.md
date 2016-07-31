@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/haldarmahesh/reactjs-mapple-tooltip.svg?branch=master)](https://travis-ci.org/haldarmahesh/reactjs-mapple-tooltip)
 # Reactjs - Mapple ToolTip
 A light weighted, easy and customizable tool tip for your app. Mapple is crafted in an elegant manner.
 
