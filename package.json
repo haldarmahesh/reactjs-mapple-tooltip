@@ -6,7 +6,8 @@
     "clean": "rimraf lib",
     "lint": "eslint ./js",
     "build:webpack": "NODE_ENV=production webpack --config config/webpack.config.js",
-    "build": "npm run clean && npm run build:webpack"
+    "build": "npm run clean && npm run build:webpack",
+    "test": "mocha test/**/*-test.js --compilers js:babel-core/register --recursive"
   },
   "repository": {
     "type": "git",
@@ -39,6 +40,7 @@
     "eslint-plugin-import": "^1.12.0",
     "eslint-plugin-jsx-a11y": "^1.2.0",
     "eslint-plugin-react": "^5.1.1",
+    "mocha": "^2.5.3",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
     "rimraf": "^2.5.4",
