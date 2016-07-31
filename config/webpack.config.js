@@ -1,8 +1,9 @@
 const path = require('path');
 const webpack = require('webpack');
 // const autoprefixer = require('autoprefixer');
+const validate = require('webpack-validator');
 
-module.exports = {
+const config = {
   devtool: 'source-map',
   entry: [
     './js/index'
@@ -31,9 +32,10 @@ module.exports = {
       loaders: ['babel'],
       include: path.join(__dirname, '../js')
     },
-    {
-      test: /\.css$/,
-      loaders: ['style-loader', 'css-loader?sourceMap']
-    }]
+      {
+        test: /\.css$/,
+        loaders: ['style-loader', 'css-loader?sourceMap']
+      }]
   }
 };
+module.exports = validate(config);

@@ -1,5 +1,5 @@
 # Reactjs - Mapple ToolTip
-An easy and customizable tooltip for your app. Mapple is crafted in an elegant manner.
+A light weighted, easy and customizable tool tip for your app. Mapple is crafted in an elegant manner.
 
 ![Mapple Image](http://i.imgur.com/gKj819N.jpg)
 

@@ -1,7 +1,7 @@
 {
   "name": "reactjs-mappletooltip",
-  "version": "1.0.1",
-  "description": "An easy to customize Tool tip react js component",
+  "version": "1.2.0",
+  "description": "Mapple: A light weighted and easy to customize Tooltip.",
   "scripts": {
     "clean": "rimraf lib",
     "lint": "eslint ./js",
@@ -44,7 +44,8 @@
     "rimraf": "^2.5.4",
     "style-loader": "^0.13.1",
     "webpack": "^1.12.2",
-    "webpack-dev-server": "^1.12.1"
+    "webpack-dev-server": "^1.12.1",
+    "webpack-validator": "^2.2.6"
   },
   "peerDependencies": {
     "react": "^15.0.1",

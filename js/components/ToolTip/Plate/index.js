@@ -13,7 +13,7 @@ export default class Plate extends Component {
     };
   }
   componentDidMount() {
-    this.props.updatePlateWidth(document.getElementById('mapple_' + this.props.currentId).getBoundingClientRect());
+    this.props.updatePlateWidth(document.getElementById('o4xFNdKxMQkZCsy_mapple_' + this.props.currentId).getBoundingClientRect());
   }
 
   componentWillReceiveProps(nextProps) {
@@ -42,7 +42,7 @@ export default class Plate extends Component {
     });
     const style = this.mappleTypeCSS.getPlateStyle();
     return (
-      <div id={`mapple_${this.props.currentId}`} className="mappleTip" style={outerPlateStyle}>
+      <div id={`o4xFNdKxMQkZCsy_mapple_${this.props.currentId}`} className="mappleTip" style={outerPlateStyle}>
         <div style={style}>
           {this.props.content}
         </div>
