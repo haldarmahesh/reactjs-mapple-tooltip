@@ -1,4 +1,7 @@
+
 [![Build Status](https://travis-ci.org/haldarmahesh/reactjs-mapple-tooltip.svg?branch=master)](https://travis-ci.org/haldarmahesh/reactjs-mapple-tooltip)
+[![npm version](https://badge.fury.io/js/reactjs-mappletooltip.svg)](https://badge.fury.io/js/reactjs-mappletooltip)
+[![NPM license](https://img.shields.io/github/license/hyperium/hyper.svg)](https://www.npmjs.com/package/reactjs-mappletooltip)
 # Reactjs - Mapple ToolTip
 A light weighted, easy and customizable tool tip for your app. Mapple is crafted in an elegant manner.
 
