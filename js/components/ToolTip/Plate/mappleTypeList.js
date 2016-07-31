@@ -10,16 +10,18 @@ export default function list(backgroundColor, textColor) {
       border: true,
       borderColor: '#bababa'
     },
+    contra: {
+      backgroundColor: 'white',
+      textColor: 'black',
+      border: true,
+      borderColor: 'black',
+      borderRadius: 0
+    },
     success: {
       backgroundColor: '#DFF2BF',
       textColor: '#5B931F',
       border: true,
       borderColor: '#a2e52e'
-    },
-    test: {
-      backgroundColor: 'green',
-      textColor: 'black',
-      border: true
     },
     warning: {
       backgroundColor: '#FEEFB3',
