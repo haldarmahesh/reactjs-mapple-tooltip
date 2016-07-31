@@ -10,7 +10,7 @@ npm i reactjs-mappletooltip --save
 
 ## Usage
 
-![Default](http://i.imgur.com/qpW2ebr.gif)
+![Default](http://i.imgur.com/O8MzzBo.gif)
 
 ```
 var MappleToolTip = require('reactjs-mappletooltip');
@@ -24,13 +24,14 @@ const PageWithToolTip = () => {
       </div>
     </MappleToolTip>
 
-    <MappleToolTip float={true} direction={'bottom'}>
+    <MappleToolTip float={true} direction={'bottom'} mappleType={'warning'}>
       <div>
         Float in bottom direction
       </div>
       <div>
         direction = 'bottom'<br/>
-        float = true
+        float = true<br/>
+        mappleType = 'warning'
       </div>
     </MappleToolTip>
 }
