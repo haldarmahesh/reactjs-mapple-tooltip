@@ -48,6 +48,12 @@ The Mapple-ToolTip seeks for two child elements. When the mouse pointer is hover
 ## Preview of defined styles
 ![7styles](http://i.imgur.com/MGJOyci.gif)
 
+##Highlights
+* Start with _7 pre-defined Mapple ToolTip themes_
+* _Customize_ the Mapplet ToolTip to get your own theme.
+* Supports _multiline content_ in Mapple Tip
+* Supports _images with text_ as Tip
+
 ## Mapple Tool Tip Props
 
 <table>
@@ -61,67 +67,86 @@ The Mapple-ToolTip seeks for two child elements. When the mouse pointer is hover
         <td>direction</td>
         <td>Direction of the Mapple tip to be rendered</td>
         <td>
-        * top (default)<br/>
-        * right<br/>
-        * bottom<br/>
-        * left
+            <ul>
+                <li> top (default)</li>
+                <li> right</li>
+                <li> bottom</li>
+                <li> left</li>
+            <ul>
         </td>
         <td>string</td>
     </tr>
     <tr>
         <td>float</td>
         <td>If set true, the Mapple floats with the cursor</td>
-        <td>* false (default)<br/>
-        * true</td>
+        <td>
+            <ul>
+                <li>false (default)</li>
+                <li>true</li>
+            </ul>
         <td>boolean</td>
     <tr>
-      <td>tipPosition</td>
-      <td>Sets the position of triangular tip, under the Mapple Tip.<br/>Ranging from 0-100 percent.</td>
-      <td>50 (default)</br>
-      0 - 100</td>
+        <td>tipPosition</td>
+        <td>Sets the position of triangular tip, under the Mapple Tip.<br/>Ranging from 0-100 percent.</td>
+        <td>
+            <ul>
+                <li>50 (default)</li>
+                <li>0 - 100</li>
+            </ul>
+        </td>
       <td>number (percentage)</td>
     </tr>
     <tr>
       <td>mappleType</td>
       <td>Directly use the predefined 7 types of Mapple style</td>
-      <td>* default (default)<br/>
-          * light<br/>
-          * contra<br/>
-          * success<br/>
-          * warning<br/>
-          * info<br/>
-          * error
+      <td>
+        <ul>
+            <li>default (default)</li>
+            <li>light</li>
+            <li>contra</li>
+            <li>success</li>
+            <li>warning</li>
+            <li>info</li>
+            <li>error</li>
+        </ul>
       </td>
       <td>string</td>
     </tr>
     <tr>
-      <td>backgroundColor</td>
-      <td>Sets the background of the Mapple tip.<br/>This overwrites the defined Mapple themes</td>
-      <td>black (default)<br/>
-      any color<br/></td>
+        <td>backgroundColor</td>
+        <td>Sets the background of the Mapple tip.<br/>This overwrites the defined Mapple themes</td>
+        <td>
+            <ul>
+                <li>black (default)</li>
+                <li>any color</li>
+            </ul>
+        </td>
       <td>string</td>
     </tr>
     <tr>
-      <td>textColor</td>
-      <td>Sets the color of text of the Mapple Tip</td>
-      <td>white (default)<br/>any color<br/></td>
+        <td>textColor</td>
+        <td>Sets the color of text of the Mapple Tip</td>
+        <td>
+            <ul>
+                <li>white (default)</li>
+                <li>any color</li>
+            </ul>
+        </td>
       <td>string</td>
     </tr>
     <tr>
-      <td>shadow</td>
-      <td>Sets the shadow of the Mapple tip</td>
-      <td>* false (default) </br>
-        * true
+        <td>shadow</td>
+        <td>Sets the shadow of the Mapple tip</td>
+        <td>
+            <ul>
+                <li>false (default)</li>
+                <li>true</li>
+            </ul>
       </td>
       <td>
       boolean
       </td>
     <tr/>
     </tr>
-</table>​
+</table>
 
-## To do feature
-* Add option to show Mapple on click
-* Add different types of animations.
-* Add method Callbacks
-* Set zIndex
