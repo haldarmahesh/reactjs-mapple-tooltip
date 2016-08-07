@@ -1,4 +1,3 @@
-
 [![Build Status](https://travis-ci.org/haldarmahesh/reactjs-mapple-tooltip.svg?branch=master)](https://travis-ci.org/haldarmahesh/reactjs-mapple-tooltip)
 [![npm version](https://badge.fury.io/js/reactjs-mappletooltip.svg)](https://badge.fury.io/js/reactjs-mappletooltip)
 [![NPM license](https://img.shields.io/github/license/hyperium/hyper.svg)](https://www.npmjs.com/package/reactjs-mappletooltip)
@@ -52,7 +51,7 @@ const PageWithToolTip = () => {
   );
 }
 ```
-Isn't it super easy to start with Mapple ToolTip :sunglasses:
+Isn't it super easy to start wwiith Mapple ToolTip :sunglasses:
 
 The Mapple-ToolTip seeks for two child elements. When the mouse pointer is hovered on the _first child_, div in the example, the Mapple ToolTip appears on top of the first child with the _second child_ as the content within the tip.
 
@@ -64,7 +63,7 @@ The Mapple-ToolTip seeks for two child elements. When the mouse pointer is hover
 * Start with _8 pre-defined Mapple ToolTip themes_
 * _Customize_ the Mapplet ToolTip to get your own theme.
 * Supports _multiline content_ in Mapple Tip
-* Supports _images with text_ wintin the Tip
+* Supports _images with text_ within the Tip
 
 ## Mapple Tool Tip Props
 
