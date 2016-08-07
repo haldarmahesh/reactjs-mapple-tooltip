@@ -14,7 +14,12 @@ module.exports = {
     publicPath: '/static/'
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        warnings: false
+      }
+    })
   ],
   module: {
     loaders: [{
@@ -37,7 +42,8 @@ module.exports = {
       alias: {
         'mappletooltip': path.join(__dirname, '../','js'),
         'react': path.resolve(path.join(__dirname, 'node_modules', 'react')),
-        'mappleTypeList': path.resolve(path.join(__dirname, '../js/components/ToolTip/Plate/mappleTypeList.js'))
+        'mappleTypeList': path.resolve(path.join(__dirname, '../js/components/ToolTip/Plate/mappleTypeList.js')),
+        'mappleTypeCSS': path.resolve(path.join(__dirname, '../js/components/ToolTip/Plate/mappleTypeCSS.js'))
       },
       extensions: ['', '.js', '.json']
     }

@@ -33,7 +33,8 @@ export default class Plate extends Component {
       this.props.tipPosition,
       this.props.direction,
       this.props.mappleType,
-      this.props.shadow);
+      this.props.shadow,
+      this.props.fadeInAnimation);
     const outerPlateStyle = this.mappleTypeCSS.getOuterPlateStyle();
     Object.assign(outerPlateStyle, {
       top: pos.posY,
@@ -52,10 +53,11 @@ export default class Plate extends Component {
   }
   renderTip() {
     const currentMapple = mappleTypeList()[this.props.mappleType];
+    const tipColor = this.props.mappleType === 'ching' ? 'red' : this.mappleTypeCSS.getOuterPlateStyle().backgroundColor;
     return (
       <span>
         {currentMapple.border ? this.tipDom(6.5, currentMapple.borderColor || currentMapple.textColor) : null}
-        {this.tipDom(5, this.mappleTypeCSS.getOuterPlateStyle().backgroundColor)}
+        {this.tipDom(5, tipColor)}
       </span>
     );
   }
@@ -82,5 +84,6 @@ Plate.propTypes = {
   borderRadius: PropTypes.number.isRequired,
   tipPosition: PropTypes.number.isRequired,
   shadow: PropTypes.bool.isRequired,
-  plateWidthHeight: PropTypes.object.isRequired
+  plateWidthHeight: PropTypes.object.isRequired,
+  fadeInAnimation: PropTypes.bool.isRequired
 };

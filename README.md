@@ -19,25 +19,34 @@ npm i reactjs-mappletooltip --save
 ```
 var MappleToolTip = require('reactjs-mappletooltip');
 const PageWithToolTip = () => {
-    <MappleToolTip>
-      <div>
-        Show Mapple Tip on this
-      </div>
-      <div>
-        Hey! this is damn easy
-      </div>
-    </MappleToolTip>
+  return(
+    <div>
 
-    <MappleToolTip float={true} direction={'bottom'} mappleType={'warning'}>
-      <div>
-        Float in bottom direction
-      </div>
-      <div>
-        direction = 'bottom'<br/>
-        float = true<br/>
-        mappleType = 'warning'
-      </div>
-    </MappleToolTip>
+      {/* Default Mapple */}
+
+      <MappleToolTip>
+        <div>
+          Show Mapple Tip on this
+        </div>
+        <div>
+          Hey! this is damn easy
+        </div>
+      </MappleToolTip>
+
+      {/* customized Mapple */}
+
+      <MappleToolTip float={true} direction={'bottom'} mappleType={'warning'}>
+        <div>
+          Float in bottom direction
+        </div>
+        <div>
+          direction = 'bottom'<br/>
+          float = true<br/>
+          mappleType = 'warning'
+        </div>
+      </MappleToolTip>
+    </div>
+  );
 }
 ```
 Isn't it super easy to start with Mapple ToolTip :sunglasses:
@@ -46,13 +55,13 @@ The Mapple-ToolTip seeks for two child elements. When the mouse pointer is hover
 
 
 ## Preview of defined styles
-![7styles](http://i.imgur.com/MGJOyci.gif)
+![8styles](http://i.imgur.com/TOE8OXH.gif)
 
 ##Highlights
-* Start with _7 pre-defined Mapple ToolTip themes_
+* Start with _8 pre-defined Mapple ToolTip themes_
 * _Customize_ the Mapplet ToolTip to get your own theme.
 * Supports _multiline content_ in Mapple Tip
-* Supports _images with text_ as Tip
+* Supports _images with text_ wintin the Tip
 
 ## Mapple Tool Tip Props
 
@@ -77,6 +86,23 @@ The Mapple-ToolTip seeks for two child elements. When the mouse pointer is hover
         <td>string</td>
     </tr>
     <tr>
+      <td>mappleType</td>
+      <td>Directly use the predefined 8 types of Mapple style</td>
+      <td>
+        <ul>
+            <li>default (default)</li>
+            <li>ching</li>
+            <li>light</li>
+            <li>contra</li>
+            <li>success</li>
+            <li>warning</li>
+            <li>info</li>
+            <li>error</li>
+        </ul>
+      </td>
+      <td>string</td>
+    </tr>
+    <tr>
         <td>float</td>
         <td>If set true, the Mapple floats with the cursor</td>
         <td>
@@ -85,6 +111,35 @@ The Mapple-ToolTip seeks for two child elements. When the mouse pointer is hover
                 <li>true</li>
             </ul>
         <td>boolean</td>
+    </tr>
+    <tr>
+        <td>shadow</td>
+        <td>Sets the shadow of the Mapple tip</td>
+        <td>
+            <ul>
+                <li>false (default)</li>
+                <li>true</li>
+            </ul>
+      </td>
+      <td>
+      boolean
+      </td>
+    <tr/>
+    <tr>
+        <td>
+            fadeInAnimation
+        </td>
+        <td>Activates the 0.25s fade in transition to the Mapple visibility</td>
+        <td>
+            <ul>
+                <li>true (default)</li>
+                <li>false</li>
+            </ul>
+        </td>
+        <td>
+            boolean
+        </td>
+    </tr>
     <tr>
         <td>tipPosition</td>
         <td>Sets the position of triangular tip, under the Mapple Tip.<br/>Ranging from 0-100 percent.</td>
@@ -95,22 +150,6 @@ The Mapple-ToolTip seeks for two child elements. When the mouse pointer is hover
             </ul>
         </td>
       <td>number (percentage)</td>
-    </tr>
-    <tr>
-      <td>mappleType</td>
-      <td>Directly use the predefined 7 types of Mapple style</td>
-      <td>
-        <ul>
-            <li>default (default)</li>
-            <li>light</li>
-            <li>contra</li>
-            <li>success</li>
-            <li>warning</li>
-            <li>info</li>
-            <li>error</li>
-        </ul>
-      </td>
-      <td>string</td>
     </tr>
     <tr>
         <td>backgroundColor</td>
@@ -133,20 +172,6 @@ The Mapple-ToolTip seeks for two child elements. When the mouse pointer is hover
             </ul>
         </td>
       <td>string</td>
-    </tr>
-    <tr>
-        <td>shadow</td>
-        <td>Sets the shadow of the Mapple tip</td>
-        <td>
-            <ul>
-                <li>false (default)</li>
-                <li>true</li>
-            </ul>
-      </td>
-      <td>
-      boolean
-      </td>
-    <tr/>
     </tr>
 </table>
 

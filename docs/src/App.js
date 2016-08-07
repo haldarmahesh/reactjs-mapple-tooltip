@@ -1,35 +1,15 @@
 import React, { Component } from 'react';
-import { ToolTip } from 'mappletooltip';
+// import ToolTip from 'mappletooltip';
+// import PageWithToolTip from './PageWithToolTip';
+import SampleMapple from './SampleMapple';
 
-export default class App extends Component {
-  render() {
-    const style = {
-      backgroundColor: 'red',
-      width: '500px',
-      padding: '10px'
-    };
-    const toolTipConfig = {
-      direction: 'bottom',
-      float: true
-    };
-    return (
-      <div>
-        <h1>Hello, world.</h1>
-        <ToolTip {...toolTipConfig}>
-          <div className="tipDiv" style={style}>
-            Hello wassup
-          </div>
-          <div>
-            Mahesh
-          </div>
-        </ToolTip>
-        <ToolTip {...toolTipConfig}>
-          <input type="text" />
-          <div>
-            hello
-          </div>
-        </ToolTip>
-      </div>
-    );
-  }
-}
+const App = () => {
+  return (
+    <div>
+      <SampleMapple />
+      {/* <PageWithToolTip /> */}
+    </div>
+  );
+};
+
+export default App;

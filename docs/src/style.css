@@ -1,3 +1,51 @@
+html {
+    padding: 10px;
+}
 .mappleTip img {
     vertical-align: bottom;
+}
+
+.sampleContent {
+    border: 1px solid black;
+    width: 200px;
+    padding: 10px;
+    text-align: center;
+    position: absolute;
+    top: 140px;
+    left: 200px;
+}
+.mapple {
+padding: 10px;
+}
+.propCol {
+    padding: 5px 10px;
+    width: 120px;
+}
+.propRow {
+    padding: 10px;
+    margin-top: 10px;
+        overflow: auto;
+}
+.propRow:hover {
+/*background-color: #f1f1f1;*/
+}
+.colContainer {
+    width: 400px;
+    float: left;
+}
+.code {
+    background-color: #263238;
+    color: lightgray;
+}
+pre .keyword {
+    color: #FFCB6B;
+}
+pre .tag {
+    color: #FA6981;
+}
+pre .values {
+    color: #26c9ff;
+}
+pre .strings {
+    color: #c6ef00;
 }
