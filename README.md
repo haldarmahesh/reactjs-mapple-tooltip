@@ -12,6 +12,9 @@ A light weighted, easy and customizable tool tip for your app. Mapple is crafted
 npm i reactjs-mappletooltip --save
 ```
 
+## Demo and Mapple ToolTip generator
+Generate the config for your Mapple ToolTip from here [Demo and Generator](http://www.maheshhaldar.xyz/reactjs-mapple-tooltip/docs/)
+
 ## Usage
 
 ![Default](http://i.imgur.com/O8MzzBo.gif)
