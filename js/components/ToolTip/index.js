@@ -11,7 +11,7 @@ export default class ToolTip extends Component {
     this.mappleTypeList = typeList();
     this.state = this.setPropsValues(props);
     this.setTime = null;
-    this.timeOut = this.state.float ? 0 : 200;
+    this.timeOut = this.state.float ? 0 : 40;
     this.gap = 10;
     this.altered = false;
     this.plateInfo = { width: 0, height: 0 };

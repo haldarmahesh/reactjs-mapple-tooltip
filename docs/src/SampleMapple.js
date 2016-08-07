@@ -3,7 +3,6 @@ import { typeList } from 'mappleTypeList';
 import Plate from 'mappletooltip/components/ToolTip/Plate';
 import Position from 'mappletooltip/components/ToolTip/helper/Position';
 import ToolTip from 'mappletooltip';
-let count = 0;
 
 export default class SampleMapple extends Component {
   constructor(props) {
@@ -49,24 +48,21 @@ export default class SampleMapple extends Component {
   }
 
   componentDidMount() {
-    if (count < 2) {
-      const plateDomInfo = document.getElementById('o4xFNdKxMQkZCsy_mapple_908172311232').getBoundingClientRect();
-      const contentForMapple = document.getElementById('asd1233').getBoundingClientRect();
-      const position = new Position();
-      const newPositionAroundDom = position.getPositionAroundDom(
-      this.state.direction, plateDomInfo, contentForMapple);
-      this.setState({
-        pos: newPositionAroundDom,
-        plateWidthHeight: { width: plateDomInfo.width, height: plateDomInfo.height }
-      });
-    }
+    const plateDomInfo = document.getElementById('o4xFNdKxMQkZCsy_mapple_908172311232').getBoundingClientRect();
+    const contentForMapple = document.getElementById('asd1233').getBoundingClientRect();
+    const position = new Position();
+    const newPositionAroundDom = position.getPositionAroundDom(
+    this.state.direction, plateDomInfo, contentForMapple);
+    this.setState({
+      pos: newPositionAroundDom,
+      plateWidthHeight: { width: plateDomInfo.width, height: plateDomInfo.height }
+    });
   }
 
   render() {
-    count++;
     return (
       <div>
-        <h2>Generate you Mapple ToolTip now</h2>
+        <h1>Generate you React Mapple ToolTip now</h1>
         <div style={{ overflow: 'auto' }}>
           <div style={{ width: '400px', float: 'left' }}>
             {this.renderDirectionOptions()}
@@ -88,8 +84,24 @@ export default class SampleMapple extends Component {
           <pre>
           npm i reactjs-mappletooltip --save
           </pre>
+          <span className="content">
+            <h2>More details</h2>
+            <div className="well">
+              <a href="https://github.com/haldarmahesh/reactjs-mapple-tooltip#reactjs---mapple-tooltip" target="_blank">
+              README.md
+            </a>
+            </div>
+          </span>
+          {this.renderFooter()}
         </div>
       </div>
+    );
+  }
+  renderFooter() {
+    return (
+      <footer className="footer">
+          Reactjs MappleToolTip by Mahesh Haldar
+      </footer>
     );
   }
   renderAdvancedContent() {
@@ -147,7 +159,7 @@ export default class SampleMapple extends Component {
     const note = (<div><b>Note: </b><i>Use the <b>mappleConfig</b> configuration to generate multiple Mapple ToolTips with same configuration</i></div>);
     return (
       <div className="">
-        <h2>Code to generate above Mapple Tool</h2>
+        <h2>Code to generate above Mapple ToolTip</h2>
         {showConfig ? note : null}
         <pre className="code">
           {showConfig ?
