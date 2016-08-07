@@ -23,6 +23,7 @@ export default class SampleMapple extends Component {
       borderRadius: 3,
       tipPosition: 50,
       shadow: false,
+      padding: '8px 12px',
       plateWidthHeight: { width: 200, height: 200 },
       fadeInAnimation: true
     };
@@ -80,15 +81,11 @@ export default class SampleMapple extends Component {
         </div>
         <div>
         {this.renderCode()}
-          <h2>Installing</h2>
-          <pre>
-          npm i reactjs-mappletooltip --save
-          </pre>
           <span className="content">
-            <h2>More details</h2>
+            <h2>Installation and other guides</h2>
             <div className="well">
               <a href="https://github.com/haldarmahesh/reactjs-mapple-tooltip#reactjs---mapple-tooltip" target="_blank">
-              README.md
+              https://github.com/haldarmahesh/reactjs-mapple-tooltip
             </a>
             </div>
           </span>
@@ -212,6 +209,7 @@ export default class SampleMapple extends Component {
         tipPosition={this.state.tipPosition}
         mappleType={this.state.mappleType}
         shadow={this.state.shadow}
+        padding={this.state.padding}
         fadeInAnimation={this.state.fadeInAnimation}
       style={{ position: 'absolute', left: 520, top: 300,
             padding: '20px',
@@ -244,6 +242,7 @@ export default class SampleMapple extends Component {
           pos={this.state.pos}
           direction={this.state.direction}
           content={this.state.content}
+          padding={this.state.padding}
           borderRadius={this.state.borderRadius}
           tipPosition={this.state.tipPosition}
           shadow={this.state.shadow}
@@ -323,7 +322,7 @@ export default class SampleMapple extends Component {
           onChange={this.handleBorderRadius.bind(this)}
           max={this.state.plateWidthHeight.height / 2}
           />
-          {this.state.mappleType === 'ching' ? '0px' : textToShow}
+          <i>{this.state.mappleType === 'ching' ? '0px (change mappleType to add borderRadius)' : textToShow}</i>
         </div>
       </div>
     );

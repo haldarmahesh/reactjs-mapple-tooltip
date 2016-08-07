@@ -18,6 +18,8 @@ export default class ToolTip extends Component {
     count++;
   }
 
+
+
   componentWillReceiveProps(nextProps) {
     this.state = this.setPropsValues(nextProps);
   }
