@@ -4,6 +4,11 @@ export default function list(backgroundColor, textColor) {
       backgroundColor,
       textColor
     },
+    ching: {
+      backgroundColor: 'black',
+      textColor: 'white',
+      border: false
+    },
     light: {
       backgroundColor: '#eaeaea',
       textColor: '#6E6E6E',
@@ -14,8 +19,7 @@ export default function list(backgroundColor, textColor) {
       backgroundColor: 'white',
       textColor: 'black',
       border: true,
-      borderColor: 'black',
-      borderRadius: 0
+      borderColor: 'black'
     },
     success: {
       backgroundColor: '#DFF2BF',

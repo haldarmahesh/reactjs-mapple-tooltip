@@ -18,6 +18,10 @@ export default class ToolTip extends Component {
     count++;
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.state = this.setPropsValues(nextProps);
+  }
+
   render() {
     const style = {
       display: 'table',
@@ -45,6 +49,7 @@ export default class ToolTip extends Component {
           tipPosition={this.state.tipPosition}
           shadow={this.state.shadow}
           plateWidthHeight={this.state.plateWidthHeight || { height: 0, width: 0 }}
+          fadeInAnimation={this.state.fadeInAnimation}
           />
           <div>
             {this.props.children[0]}
@@ -68,7 +73,8 @@ export default class ToolTip extends Component {
       backgroundColor: typeof(props.backgroundColor) === 'string' ? props.backgroundColor : 'black',
       textColor: typeof(props.textColor) === 'string' ? props.textColor : 'white',
       mappleType: typeof(props.mappleType) === 'string' ? this.polishMappleType(props.mappleType) : 'default',
-      shadow: typeof(props.shadow) === 'boolean' ? props.shadow : false
+      shadow: typeof(props.shadow) === 'boolean' ? props.shadow : false,
+      fadeInAnimation: typeof(props.fadeInAnimation) === 'boolean' ? props.fadeInAnimation : true
     };
   }
   polishTipPosition(tipPosition) {
@@ -165,6 +171,7 @@ ToolTip.propTypes = {
   backgroundColor: PropTypes.string,
   textColor: PropTypes.string,
   mappleType: PropTypes.string,
-  shadow: PropTypes.bool
+  shadow: PropTypes.bool,
+  fadeInAnimation: PropTypes.bool
 };
 

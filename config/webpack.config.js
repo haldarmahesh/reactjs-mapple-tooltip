@@ -1,6 +1,5 @@
 const path = require('path');
 const webpack = require('webpack');
-// const autoprefixer = require('autoprefixer');
 const validate = require('webpack-validator');
 
 const config = {
