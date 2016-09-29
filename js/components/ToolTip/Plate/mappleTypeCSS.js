@@ -55,8 +55,8 @@ export default class MappleTypeCSS {
     };
   }
   getTipStyle(tipSize, color) {
-    const tipLocationVertical = `${(this.plateWidthHeight.height * this.tipPosition / 100) - tipSize}px`;
-    const tipLocationHorizontal = `${(this.plateWidthHeight.width * this.tipPosition / 100) - tipSize}px`;
+    const tipLocationVertical = `calc(${(this.tipPosition)}% - ${tipSize}px)`;
+    const tipLocationHorizontal = `calc(${(this.tipPosition)}% - ${tipSize}px)`;
     const triangleTipStyle = {
       width: '0',
       position: 'absolute',
