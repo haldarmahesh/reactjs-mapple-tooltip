@@ -1,6 +1,6 @@
 {
   "name": "reactjs-mappletooltip",
-  "version": "1.4.62",
+  "version": "1.4.63",
   "description": "Mapple ToolTip: A light weighted and easy to customize React Tooltip.",
   "scripts": {
     "clean": "rimraf lib",
