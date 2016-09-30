@@ -14,7 +14,7 @@ export default class MappleTypeCSS {
     this.shadow = shadow;
     this.fadeInAnimation = fadeInAnimation ? 0.25 : 0;
     this.borderRadius = this.mappleType === 'ching' ? 0 : this.borderRadius;
-    this.padding = this.mappleType === 'ching' ? '8px 12px 8px 12px' : padding
+    this.padding = this.mappleType === 'ching' ? '8px 12px 8px 12px' : padding;
   }
   getPlateStyle() {
     const plateStyle = {

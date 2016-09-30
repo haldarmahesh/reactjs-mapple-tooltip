@@ -34,24 +34,25 @@ export default class ToolTip extends Component {
           onMouseEnter={event => ::this.handleMouseEnter(event)}
           onMouseLeave={::this.handleMouseLeave}
           onMouseMove={event => ::this.handleMouseMove(event)}>
+        { this.state.showToolTipOn ?
           <Plate
-          currentId={count}
-          visible={this.state.mouseIsOver}
-          updatePlateWidth={::this.updatePlateWidth}
-          backgroundColor={this.state.backgroundColor}
-          textColor={this.state.textColor}
-          default={this.state.default}
-          mappleType={this.state.mappleType}
-          pos={this.state.pos}
-          direction={this.state.direction}
-          content={this.props.children[1]}
-          borderRadius={this.state.borderRadius}
-          tipPosition={this.state.tipPosition}
-          shadow={this.state.shadow}
-          plateWidthHeight={this.state.plateWidthHeight || { height: 0, width: 0 }}
-          fadeInAnimation={this.state.fadeInAnimation}
-          padding={this.state.padding}
-          />
+            currentId={count}
+            visible={this.state.mouseIsOver}
+            updatePlateWidth={::this.updatePlateWidth}
+            backgroundColor={this.state.backgroundColor}
+            textColor={this.state.textColor}
+            default={this.state.default}
+            mappleType={this.state.mappleType}
+            pos={this.state.pos}
+            direction={this.state.direction}
+            content={this.props.children[1]}
+            borderRadius={this.state.borderRadius}
+            tipPosition={this.state.tipPosition}
+            shadow={this.state.shadow}
+            plateWidthHeight={this.state.plateWidthHeight || { height: 0, width: 0 }}
+            fadeInAnimation={this.state.fadeInAnimation}
+            padding={this.state.padding}
+          /> : null}
           <div>
             {this.props.children[0]}
           </div>
@@ -76,7 +77,8 @@ export default class ToolTip extends Component {
       mappleType: typeof(props.mappleType) === 'string' ? this.polishMappleType(props.mappleType) : 'default',
       shadow: typeof(props.shadow) === 'boolean' ? props.shadow : false,
       fadeInAnimation: typeof(props.fadeInAnimation) === 'boolean' ? props.fadeInAnimation : true,
-      padding: typeof(props.padding) === 'string' ? props.padding : '8px 12px'
+      padding: typeof(props.padding) === 'string' ? props.padding : '8px 12px',
+      showToolTipOn: typeof(props.showToolTipOn) === 'boolean' ? props.showToolTipOn : true
     };
   }
   polishTipPosition(tipPosition) {
@@ -175,6 +177,7 @@ ToolTip.propTypes = {
   mappleType: PropTypes.string,
   shadow: PropTypes.bool,
   fadeInAnimation: PropTypes.bool,
-  padding: PropTypes.string
+  padding: PropTypes.string,
+  showToolTipOn: PropTypes.bool
 };
 
