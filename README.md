@@ -126,7 +126,7 @@ The Mapple-ToolTip seeks for two child elements. When the mouse pointer is hover
       <td>
       boolean
       </td>
-    <tr/>
+    </tr>
     <tr>
         <td>
             fadeInAnimation
@@ -174,6 +174,28 @@ The Mapple-ToolTip seeks for two child elements. When the mouse pointer is hover
             </ul>
         </td>
       <td>string</td>
+    </tr>
+    <tr>
+        <td>padding</td>
+        <td>Sets the padding in the Mapple Tip</td>
+        <td>
+            <ul>
+                <li>'8px 12px' (default)</li>
+                <li>CSS style padding property</li>
+            </ul>
+        </td>
+      <td>string</td>
+    </tr>
+    <tr>
+        <td>showToolTipOn</td>
+        <td>Display/hide the Mapple Tool Tip on the content, based on condition</td>
+        <td>
+            <ul>
+                <li>true (default)</li>
+                <li>any condition</li>
+            </ul>
+        </td>
+      <td>boolean</td>
     </tr>
 </table>
 
