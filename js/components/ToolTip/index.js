@@ -34,7 +34,7 @@ export default class ToolTip extends Component {
           onMouseEnter={event => ::this.handleMouseEnter(event)}
           onMouseLeave={::this.handleMouseLeave}
           onMouseMove={event => ::this.handleMouseMove(event)}>
-        { this.state.showToolTipIf ?
+        { this.state.showMappleIf ?
           <Plate
             currentId={count}
             visible={this.state.mouseIsOver}
@@ -78,7 +78,7 @@ export default class ToolTip extends Component {
       shadow: typeof(props.shadow) === 'boolean' ? props.shadow : false,
       fadeInAnimation: typeof(props.fadeInAnimation) === 'boolean' ? props.fadeInAnimation : true,
       padding: typeof(props.padding) === 'string' ? props.padding : '8px 12px',
-      showToolTipIf: typeof(props.showToolTipIf) === 'boolean' ? props.showToolTipIf : true
+      showMappleIf: typeof(props.showMappleIf) === 'boolean' ? props.showMappleIf : true
     };
   }
   polishTipPosition(tipPosition) {
@@ -178,6 +178,6 @@ ToolTip.propTypes = {
   shadow: PropTypes.bool,
   fadeInAnimation: PropTypes.bool,
   padding: PropTypes.string,
-  showToolTipIf: PropTypes.bool
+  showMappleIf: PropTypes.bool
 };
 
