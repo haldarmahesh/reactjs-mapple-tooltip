@@ -187,7 +187,7 @@ The Mapple-ToolTip seeks for two child elements. When the mouse pointer is hover
       <td>string</td>
     </tr>
     <tr>
-        <td>showToolTipif</td>
+        <td>showToolTipIf</td>
         <td>Display/hide the Mapple Tool Tip on the content, based on condition</td>
         <td>
             <ul>
