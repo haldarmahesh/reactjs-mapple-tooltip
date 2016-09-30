@@ -1,7 +1,7 @@
 import { directions } from '../helper/constants';
 import mappleList from './mappleTypeList.js';
 export default class MappleTypeCSS {
-  constructor(backgroundColor, textColor, borderRadius, plateWidthHeight, tipPosition, direction, mappleType, shadow, fadeInAnimation) {
+  constructor(backgroundColor, textColor, borderRadius, plateWidthHeight, tipPosition, direction, mappleType, shadow, fadeInAnimation, padding) {
     this.mappleTypeList = mappleList(backgroundColor, textColor);
     this.mappleType = mappleType;
     this.currentMapple = this.mappleTypeList[this.mappleType];
@@ -14,6 +14,7 @@ export default class MappleTypeCSS {
     this.shadow = shadow;
     this.fadeInAnimation = fadeInAnimation ? 0.25 : 0;
     this.borderRadius = this.mappleType === 'ching' ? 0 : this.borderRadius;
+    this.padding = this.mappleType === 'ching' ? '8px 12px 8px 12px' : padding
   }
   getPlateStyle() {
     const plateStyle = {
@@ -21,22 +22,22 @@ export default class MappleTypeCSS {
     };
     if (this.direction === directions.TOP) {
       Object.assign(plateStyle, {
-        padding: this.mappleType === 'ching' ? '8px 12px 4px 12px' : '8px 12px',
+        padding: this.padding,
         borderBottom: this.mappleType === 'ching' ? '4px solid red' : null
       });
     } else if (this.direction === directions.BOTTOM) {
       Object.assign(plateStyle, {
-        padding: this.mappleType === 'ching' ? '8px 12px 8px 12px' : '8px 12px',
+        padding: this.padding,
         borderTop: this.mappleType === 'ching' ? '4px solid red' : null
       });
     } else if (this.direction === directions.LEFT) {
       Object.assign(plateStyle, {
-        padding: this.mappleType === 'ching' ? '8px 12px' : '8px 12px',
+        padding: this.padding,
         borderRight: this.mappleType === 'ching' ? '4px solid red' : null
       });
     } else if (this.direction === directions.RIGHT) {
       Object.assign(plateStyle, {
-        padding: this.mappleType === 'ching' ? '8px 12px' : '8px 12px',
+        padding: this.padding,
         borderLeft: this.mappleType === 'ching' ? '4px solid red' : null
       });
     }

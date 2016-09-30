@@ -50,6 +50,7 @@ export default class ToolTip extends Component {
           shadow={this.state.shadow}
           plateWidthHeight={this.state.plateWidthHeight || { height: 0, width: 0 }}
           fadeInAnimation={this.state.fadeInAnimation}
+          padding={this.state.padding}
           />
           <div>
             {this.props.children[0]}
@@ -74,7 +75,8 @@ export default class ToolTip extends Component {
       textColor: typeof(props.textColor) === 'string' ? props.textColor : 'white',
       mappleType: typeof(props.mappleType) === 'string' ? this.polishMappleType(props.mappleType) : 'default',
       shadow: typeof(props.shadow) === 'boolean' ? props.shadow : false,
-      fadeInAnimation: typeof(props.fadeInAnimation) === 'boolean' ? props.fadeInAnimation : true
+      fadeInAnimation: typeof(props.fadeInAnimation) === 'boolean' ? props.fadeInAnimation : true,
+      padding: typeof(props.padding) === 'string' ? props.padding : '8px 12px'
     };
   }
   polishTipPosition(tipPosition) {
@@ -172,6 +174,7 @@ ToolTip.propTypes = {
   textColor: PropTypes.string,
   mappleType: PropTypes.string,
   shadow: PropTypes.bool,
-  fadeInAnimation: PropTypes.bool
+  fadeInAnimation: PropTypes.bool,
+  padding: PropTypes.string
 };
 

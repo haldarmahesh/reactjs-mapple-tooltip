@@ -34,7 +34,7 @@ export default class Plate extends Component {
       this.props.direction,
       this.props.mappleType,
       this.props.shadow,
-      this.props.fadeInAnimation);
+      this.props.fadeInAnimation, this.props.padding);
     const outerPlateStyle = this.mappleTypeCSS.getOuterPlateStyle();
     Object.assign(outerPlateStyle, {
       top: pos.posY,
@@ -85,5 +85,6 @@ Plate.propTypes = {
   tipPosition: PropTypes.number.isRequired,
   shadow: PropTypes.bool.isRequired,
   plateWidthHeight: PropTypes.object.isRequired,
-  fadeInAnimation: PropTypes.bool.isRequired
+  fadeInAnimation: PropTypes.bool.isRequired,
+  padding: PropTypes.string.isRequired
 };
