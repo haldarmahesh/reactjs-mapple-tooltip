@@ -51,7 +51,7 @@ const PageWithToolTip = () => {
   );
 }
 ```
-Isn't it super easy to start wwiith Mapple ToolTip :sunglasses:
+Isn't it super easy to start with Mapple ToolTip :sunglasses:
 
 The Mapple-ToolTip seeks for two child elements. When the mouse pointer is hovered on the _first child_, div in the example, the Mapple ToolTip appears on top of the first child with the _second child_ as the content within the tip.
 
