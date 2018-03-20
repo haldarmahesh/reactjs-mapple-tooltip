@@ -12,7 +12,7 @@ npm i reactjs-mappletooltip --save
 ```
 
 ## Demo and Mapple ToolTip generator
-Generate the config for your Mapple ToolTip.
+Generate the config for your Mapple ToolTip from here [Demo and Generator](http://www.maheshhaldar.com/reactjs-mapple-tooltip/docs/)
 
 ## Usage
 
